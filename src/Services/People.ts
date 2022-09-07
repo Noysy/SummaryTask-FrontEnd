@@ -1,6 +1,6 @@
 import axios from 'axios';
 import configTs from '../config';
-import { IAddPerson, IUpdate } from '../Interfaces/Person';
+import { ICreatePerson, IUpdate } from '../Interfaces/Person';
 
 const url = `${configTs.URL}${configTs.PEOPLE_API}`;
 
@@ -9,7 +9,7 @@ class PeopleServices {
         return await axios.get(`${url}/`);
     };
 
-    static createPerson = async (personDetails: IAddPerson) => {
+    static createPerson = async (personDetails: ICreatePerson) => {        
         return await axios.post(`${url}/`, personDetails);
     };
 
