@@ -27,7 +27,7 @@ class PeopleServices {
     };
 
     static deletePerson = async (personId: string) => {
-        return await axios.delete(`${configTs.URL}/deletePerson/${personId}`);
+        return await axios.delete(`${configTs.URL}/people/${personId}`);
     };
 }
 
