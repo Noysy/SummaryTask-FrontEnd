@@ -18,7 +18,7 @@ const PeoplePage = () => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, [peopleList.length]);
+  }, []);
 
   const fullList = peopleList.map((person) => {
     return (
@@ -29,6 +29,7 @@ const PeoplePage = () => {
         favoriteAnimal={person.favoriteAnimal}
         favoriteFood={person.favoriteFood}
         id={person.id}
+        setPeopleList={setPeopleList}
       />
     );
   });
@@ -39,7 +40,11 @@ const PeoplePage = () => {
       {!isCreating ? (
         <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
       ) : (
-        <CreatePerson setIsCreating={setIsCreating} isCreating={isCreating} />
+        <CreatePerson
+          setIsCreating={setIsCreating}
+          isCreating={isCreating}
+          setPeopleList={setPeopleList}
+        />
       )}
     </div>
   );
