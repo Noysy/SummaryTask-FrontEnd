@@ -84,6 +84,7 @@ const Group: React.FC<IGroupProps> = ({
             .map((person: IAutocomplete, index: number) => {
               return (
                 <ListItemButton
+                  key={person.id}
                   selected={selectedIndex === index}
                   onClick={(event) => {
                     handleListItemClick(event, 1);
@@ -116,6 +117,7 @@ const Group: React.FC<IGroupProps> = ({
             .map((group: IAutocomplete, index: number) => {
               return (
                 <ListItemButton
+                  key={group.id}
                   selected={selectedGroupIndex === index}
                   onClick={(event) => {
                     handleGroupListItemClick(event, 1);
