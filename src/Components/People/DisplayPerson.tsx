@@ -11,6 +11,9 @@ import { FileDetails, personDisabledDetails } from "../../Interfaces/Person";
 import PeopleServices from "../../Services/People";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Link from "@mui/material/Link";
 
 const PersonDisabledDetails = (props: personDisabledDetails) => {
   const {
@@ -25,6 +28,8 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     files,
   } = props;
   const [personFiles, setPersonFiles] = useState<FileDetails[]>([]);
+  const [isFilesOpen, setIsFilesOpen] = useState<boolean>(false);
+
   useEffect(() => {
     if (files)
       setPersonFiles(
@@ -68,23 +73,46 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {id}
         </Typography>
-        {personFiles.length > 0 ? (
+
+        {isFilesOpen ? (
           <>
-            <Typography sx={{ mb: 0.1 }} color="text.secondary">
-              Files:
-            </Typography>
+            <Button
+              variant="contained"
+              color="inherit"
+              onClick={() => {
+                setIsFilesOpen(!isFilesOpen);
+              }}
+              endIcon={<KeyboardArrowDownIcon />}
+            >
+              Files
+            </Button>
             <div id="person-files">
               {personFiles.map((file) => {
                 return (
-                  <a key={file.name} id="file" href={file.url}>
+                  <Link
+                    key={file.name}
+                    id="file"
+                    href={file.url}
+                    fontFamily=""
+                    mt={1}
+                  >
                     {file.name}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
           </>
         ) : (
-          ""
+          <Button
+            variant="contained"
+            color="inherit"
+            onClick={() => {
+              setIsFilesOpen(!isFilesOpen);
+            }}
+            endIcon={<KeyboardArrowUpIcon />}
+          >
+            Files
+          </Button>
         )}
       </CardContent>
       <div id="person-buttons">
