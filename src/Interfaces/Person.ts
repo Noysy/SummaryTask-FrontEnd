@@ -4,6 +4,7 @@ export interface IPerson {
   favoriteAnimal: string;
   favoriteFood: string;
   id: string;
+  files?: FileDetails[];
 }
 
 export interface ICreatePerson {
@@ -51,4 +52,9 @@ export interface IUpdate {
   favoriteAnimal?: string;
   favoriteFood?: string;
   id: string;
+}
+
+export interface FileDetails {
+  name: string;
+  url: string;
 }
