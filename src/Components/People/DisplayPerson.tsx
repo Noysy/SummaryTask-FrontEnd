@@ -1,7 +1,16 @@
-import { CardContent, CardActions, Fab, Typography } from "@mui/material";
+import {
+  CardContent,
+  CardActions,
+  Fab,
+  Typography,
+  Button,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { personDisabledDetails } from "../../Interfaces/Person";
+import { FileDetails, personDisabledDetails } from "../../Interfaces/Person";
+import PeopleServices from "../../Services/People";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const PersonDisabledDetails = (props: personDisabledDetails) => {
   const {
@@ -13,7 +22,32 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     favoriteAnimal,
     favoriteColor,
     favoriteFood,
+    files,
   } = props;
+  const [personFiles, setPersonFiles] = useState<FileDetails[]>([]);
+  useEffect(() => {
+    if (files)
+      setPersonFiles(
+        files.map((file) => {
+          const nameArray = file.name.split("-");
+          const name = nameArray[1];
+          return { name: name, url: file.url };
+        })
+      );
+  }, []);
+
+  const uploadFile = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    await PeopleServices.uploadFile(id, formData)
+      .then((res) => {
+        setPersonFiles((files) => {
+          return [...files, res.data];
+        });
+        return toast.success("The file has been uploaded!");
+      })
+      .catch((err) => toast.error(err.response.data));
+  };
 
   return (
     <>
@@ -34,27 +68,64 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {id}
         </Typography>
+        {personFiles.length > 0 ? (
+          <>
+            <Typography sx={{ mb: 0.1 }} color="text.secondary">
+              Files:
+            </Typography>
+            <div id="person-files">
+              {personFiles.map((file) => {
+                return (
+                  <a key={file.name} id="file" href={file.url}>
+                    {file.name}
+                  </a>
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </CardContent>
-      <CardActions>
-        <Fab
-          color="default"
-          aria-label="edit"
+      <div id="person-buttons">
+        <CardActions>
+          <Fab
+            color="default"
+            aria-label="edit"
+            size="small"
+            onClick={() => {
+              setAreSlotsEnabled(!areSlotsEnabled);
+            }}
+          >
+            <EditIcon />
+          </Fab>
+          <Fab
+            color="error"
+            aria-label="delete"
+            size="small"
+            onClick={() => deletePerson(id)}
+          >
+            <DeleteIcon />
+          </Fab>
+        </CardActions>
+        <Button
+          variant="contained"
+          component="label"
           size="small"
-          onClick={() => {
-            setAreSlotsEnabled(!areSlotsEnabled);
-          }}
+          sx={{ m: 1 }}
         >
-          <EditIcon />
-        </Fab>
-        <Fab
-          color="error"
-          aria-label="delete"
-          size="small"
-          onClick={() => deletePerson(id)}
-        >
-          <DeleteIcon />
-        </Fab>
-      </CardActions>
+          Upload File
+          <input
+            type="file"
+            hidden
+            onChange={(event) => {
+              if (event.target.files) {
+                uploadFile(event.target.files[0]);
+              }
+            }}
+          />
+        </Button>
+      </div>
     </>
   );
 };
