@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Link from "@mui/material/Link";
+import { StyledLink } from "../../Styles/styledComponents";
 
 const PersonDisabledDetails = (props: personDisabledDetails) => {
   const {
@@ -89,15 +89,14 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
             <div id="person-files">
               {personFiles.map((file) => {
                 return (
-                  <Link
+                  <StyledLink
                     key={file.name}
                     id="file"
                     href={file.url}
                     fontFamily=""
-                    mt={1}
                   >
                     {file.name}
-                  </Link>
+                  </StyledLink>
                 );
               })}
             </div>
