@@ -20,6 +20,7 @@ import NameEnabled from "./NameEnabled";
 import NameDisabled from "./NameDisabled";
 import PeopleOpen from "./PeopleOpen";
 import GroupsOpen from "./GroupsOpen";
+import { useTranslation } from "react-i18next";
 
 const Group: React.FC<IGroupProps> = ({
   id,
@@ -38,6 +39,8 @@ const Group: React.FC<IGroupProps> = ({
   const [selectedIndex, setSelectedIndex] = useState<number>();
   const [selectedGroupIndex, setSelectedGroupIndex] = useState<number>();
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     gettingGroups();
   }, [groupList]);
@@ -48,8 +51,7 @@ const Group: React.FC<IGroupProps> = ({
         setGroupList((groupList: IGroup[]) =>
           groupList.filter((group) => group.id !== id)
         );
-
-        return toast.success("ez");
+        return toast.success(t("group.delete"));
       })
       .catch((err) => {
         return toast.error(err.response.data);
@@ -65,7 +67,7 @@ const Group: React.FC<IGroupProps> = ({
             return { id: group.id, name: group.name };
           })
         );
-        return toast.success("damn.. it worked");
+        return toast.success(t("group.update"));
       })
       .catch((err) => {
         return toast.error(err.response.data);
