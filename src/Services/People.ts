@@ -1,8 +1,18 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
 import configTs from "../config";
 import { ICreatePerson, IUpdate } from "../Interfaces/Person";
 
 const url = `${configTs.URL}${configTs.PEOPLE_API}`;
+
+axios.interceptors.request.use((config) => {
+  if (config.headers === undefined) config.headers = {};
+
+  const cookies = new Cookies();
+  config.headers!["Authorization"] = cookies.get("jwt");
+
+  return config;
+});
 
 class PeopleServices {
   static getAllPeople = async () => {
@@ -30,14 +40,12 @@ class PeopleServices {
     return await axios.delete(`${url}/${personId}`);
   };
 
-  static uploadFile = async (
-    personId: string,
-    file: FormData,
-  ) => {
-    return await axios.put(
-      `${url}/addFileToPerson/${personId}/`,
-      file,
-    );
+  static uploadFile = async (personId: string, file: FormData) => {
+    return await axios.put(`${url}/addFileToPerson/${personId}/`, file);
+  };
+
+  static selectUser = async (personId: string) => {
+    return await axios.get(`${configTs.URL}/selectUser/${personId}/`);
   };
 }
 
