@@ -98,23 +98,19 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         value={newFavoriteAnimal}
         onChange={(text) => setFavoriteAnimal(text.target.value)}
       />
-      {
-        id ? (
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {id}
-          </Typography>
-        ) : (
-          //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          <FormControl variant="standard" sx={{ minWidth: 120 }}>
-            <InputLabel>Group</InputLabel>
-            <Select value={group} onChange={handleChange} label="Group">
-              <MenuItem value="">None</MenuItem>
-              {allGroups}
-            </Select>
-          </FormControl>
-        )
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      }
+      {id ? (
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {id}
+        </Typography>
+      ) : (
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <InputLabel>Group</InputLabel>
+          <Select value={group} onChange={handleChange} label="Group">
+            <MenuItem value="">None</MenuItem>
+            {allGroups}
+          </Select>
+        </FormControl>
+      )}
       <CardActions>
         {id ? (
           <>
