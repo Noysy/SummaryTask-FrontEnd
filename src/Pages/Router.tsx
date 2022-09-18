@@ -14,7 +14,7 @@ const Main = () => {
   const [people, setPeople] = useState();
 
   useEffect(() => {
-    PeopleServices.getAllPeople()
+    PeopleServices.getAllPeopleList()
       .then((res) => {
         setPeople(
           res.data.map((person: IPerson) => {
@@ -34,7 +34,7 @@ const Main = () => {
   const handleChange = (event: SelectChangeEvent) => {
     PeopleServices.selectUser(event.target.value).then((res) => {
       const cookies = new Cookies();
-      cookies.set("jwt", res.data, { path: "/" });
+      cookies.set("jwt", `Barrier ${res.data}`, { path: "/" });
     });
   };
 
