@@ -13,31 +13,6 @@ import Cookies from "universal-cookie";
 const Main = () => {
   const [people, setPeople] = useState();
 
-  useEffect(() => {
-    PeopleServices.getAllPeople()
-      .then((res) => {
-        setPeople(
-          res.data.map((person: IPerson) => {
-            return (
-              <MenuItem key={person.id} value={person.id}>
-                {person.name}
-              </MenuItem>
-            );
-          })
-        );
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
-  }, []);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    PeopleServices.selectUser(event.target.value).then((res) => {
-      const cookies = new Cookies();
-      cookies.set("jwt", res.data, { path: "/" });
-    });
-  };
-
   return (
     <>
       <div id="page">
@@ -52,9 +27,6 @@ const Main = () => {
               Groups
             </Button>
           </Link>
-          <Select sx={{ width: 400 }} onChange={handleChange} defaultValue={""}>
-            {people}
-          </Select>
           <hr />
         </div>
         <Routes>
