@@ -15,9 +15,10 @@ const Person = (props: IPersonFunc) => {
     name: string,
     favoriteAnimal: string,
     favoriteColor: string,
-    favoriteFood: string
+    favoriteFood: string,
+    role: string
   ) => {
-    if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood)
+    if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     PeopleServices.updatePerson({
       id: id,
@@ -25,6 +26,7 @@ const Person = (props: IPersonFunc) => {
       favoriteColor: favoriteColor,
       favoriteAnimal: favoriteAnimal,
       favoriteFood: favoriteFood,
+      role: role,
     })
       .then(() => {
         setPeopleList((peopleList: IPerson[]) =>
@@ -36,6 +38,7 @@ const Person = (props: IPersonFunc) => {
                 favoriteColor: favoriteColor,
                 favoriteAnimal: favoriteAnimal,
                 favoriteFood: favoriteFood,
+                role: role,
               };
             return {
               id: person.id,
@@ -43,6 +46,7 @@ const Person = (props: IPersonFunc) => {
               favoriteColor: person.favoriteColor,
               favoriteAnimal: person.favoriteAnimal,
               favoriteFood: person.favoriteFood,
+              role: person.role,
             };
           })
         );

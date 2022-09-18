@@ -18,15 +18,17 @@ const CreatePerson = (props: IProps) => {
     favoriteAnimal: string,
     favoriteColor: string,
     favoriteFood: string,
+    role: string,
     group: string
   ) => {
-    if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood)
+    if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     PeopleServices.createPerson({
       name: name,
       favoriteColor: favoriteColor,
       favoriteAnimal: favoriteAnimal,
       favoriteFood: favoriteFood,
+      role: role,
       group: group,
     })
       .then((res) => {
@@ -38,6 +40,7 @@ const CreatePerson = (props: IProps) => {
             favoriteAnimal: res.data.favoriteAnimal,
             favoriteFood: res.data.favoriteFood,
             favoriteColor: res.data.favoriteColor,
+            role: role,
           },
         ]);
 
@@ -54,6 +57,7 @@ const CreatePerson = (props: IProps) => {
           favoriteColor=""
           favoriteAnimal=""
           favoriteFood=""
+          role=""
           id=""
           setAreSlotsEnabled={setIsCreating}
           areSlotsEnabled={isCreating}

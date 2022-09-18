@@ -23,6 +23,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     id,
     name,
     favoriteAnimal,
+    role,
     favoriteColor,
     favoriteFood,
     files,
@@ -61,14 +62,17 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {name}
         </Typography>
-        <Typography variant="body2" sx={{ mb: 1.5 }} marginLeft={2}>
+        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
           Favorite color: {favoriteColor}
         </Typography>
-        <Typography variant="body2" sx={{ mb: 1.5 }} marginLeft={2}>
+        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
           Favorite food: {favoriteFood}
         </Typography>
-        <Typography variant="body2" sx={{ mb: 1.5 }} marginLeft={2}>
+        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
           Favorite animal: {favoriteAnimal}
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
+          Role: {role}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {id}

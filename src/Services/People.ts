@@ -32,6 +32,7 @@ class PeopleServices {
         favoriteColor: personDetails.favoriteColor,
         favoriteAnimal: personDetails.favoriteAnimal,
         favoriteFood: personDetails.favoriteFood,
+        role: personDetails.role,
       },
     });
   };

@@ -3,6 +3,7 @@ export interface IPerson {
   favoriteColor: string;
   favoriteAnimal: string;
   favoriteFood: string;
+  role: string;
   id: string;
   files?: FileDetails[];
 }
@@ -12,6 +13,7 @@ export interface ICreatePerson {
   favoriteColor: string;
   favoriteAnimal: string;
   favoriteFood: string;
+  role: string;
   group: string;
 }
 
@@ -51,6 +53,7 @@ export interface IUpdate {
   favoriteColor?: string;
   favoriteAnimal?: string;
   favoriteFood?: string;
+  role?: string;
   id: string;
 }
 

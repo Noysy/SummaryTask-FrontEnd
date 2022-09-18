@@ -28,6 +28,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
     name,
     favoriteFood,
     favoriteAnimal,
+    role,
     favoriteColor,
     id,
   } = props;
@@ -35,6 +36,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
   const [newFavoriteColor, setFavoriteColor] = useState(favoriteColor);
   const [newFavoriteAnimal, setFavoriteAnimal] = useState(favoriteAnimal);
   const [newFavoriteFood, setFavoriteFood] = useState(favoriteFood);
+  const [newRole, setRole] = useState(role);
   const [allGroups, setAllGroups] = useState();
   const [group, setGroup] = useState("");
 
@@ -98,6 +100,15 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         value={newFavoriteAnimal}
         onChange={(text) => setFavoriteAnimal(text.target.value)}
       />
+      <TextField
+        InputProps={{ disableUnderline: true }}
+        sx={{ mb: -1, ml: 2 }}
+        id="details-slot"
+        placeholder="Role:"
+        variant="standard"
+        value={newRole}
+        onChange={(text) => setRole(text.target.value)}
+      />
       {id ? (
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {id}
@@ -128,7 +139,8 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                     newName,
                     newFavoriteAnimal,
                     newFavoriteColor,
-                    newFavoriteFood
+                    newFavoriteFood,
+                    newRole
                   );
                 }
               }}
@@ -145,6 +157,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                 setFavoriteColor(favoriteColor);
                 setFavoriteFood(favoriteFood);
                 setFavoriteAnimal(favoriteAnimal);
+                setRole(role);
                 setAreSlotsEnabled(!areSlotsEnabled);
               }}
             >
@@ -167,6 +180,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                     newFavoriteAnimal,
                     newFavoriteColor,
                     newFavoriteFood,
+                    newRole,
                     group
                   );
                 }

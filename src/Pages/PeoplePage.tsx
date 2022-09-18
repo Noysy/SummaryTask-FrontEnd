@@ -28,6 +28,7 @@ const PeoplePage = () => {
         favoriteColor={person.favoriteColor}
         favoriteAnimal={person.favoriteAnimal}
         favoriteFood={person.favoriteFood}
+        role={person.role}
         files={person.files}
         id={person.id}
         setPeopleList={setPeopleList}

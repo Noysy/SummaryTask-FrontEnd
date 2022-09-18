@@ -182,6 +182,7 @@ const Group: React.FC<IGroupProps> = ({
         favoriteAnimal={person.favoriteAnimal}
         favoriteColor={person.favoriteColor}
         favoriteFood={person.favoriteFood}
+        role={person.role}
         groupId={id}
         gettingPeople={gettingPeople}
       />
