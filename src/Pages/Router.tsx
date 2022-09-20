@@ -12,11 +12,14 @@ import Cookies from "universal-cookie";
 
 const Main = () => {
   const [people, setPeople] = useState();
-  const [currentCookie, setCurrentCookie] = useState("");
+  const [allPeople, setAllPeople] = useState<IPerson[]>();
+  const [currentCookie, setCurrentCookie] = useState<string>("");
+  const [currentRole, setCurrentRole] = useState<string>("");
 
   useEffect(() => {
     PeopleServices.getAllPeopleList()
       .then((res) => {
+        setAllPeople(res.data);
         setPeople(
           res.data.map((person: IPerson) => {
             return (
@@ -38,6 +41,14 @@ const Main = () => {
       cookies.set("jwt", `Barrier ${res.data}`, { path: "/" });
       setCurrentCookie(cookies.get("jwt"));
     });
+    if (allPeople) {
+      const person = allPeople.find((person: IPerson) => {
+        return person.id === event.target.value;
+      });
+      if (person) {
+        setCurrentRole(person.role);
+      }
+    }
   };
 
   return (

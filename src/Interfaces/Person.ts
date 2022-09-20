@@ -64,4 +64,5 @@ export interface FileDetails {
 
 export interface IPage {
   cookie: string;
+  currentRole: string;
 }
