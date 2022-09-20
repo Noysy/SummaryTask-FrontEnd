@@ -7,10 +7,9 @@ import Group from "../Components/Groups/Group";
 import CreateGroup from "../Components/Groups/CreateGroup";
 import { IPage } from "../Interfaces/Person";
 
-const GroupPage = (props: IPage) => {
+const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
   const [groupList, setGroupList] = useState<IGroup[]>([]);
   const [isCreating, setIsCreating] = useState(false);
-  const { cookie, currentRole } = props;
 
   useEffect(() => {
     GroupServices.getAllGroups()
@@ -35,6 +34,7 @@ const GroupPage = (props: IPage) => {
         name={group.name}
         setGroupList={setGroupList}
         groupList={groupList}
+        currentRole={currentRole}
       />
     );
   });

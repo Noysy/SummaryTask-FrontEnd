@@ -6,10 +6,9 @@ import { toast } from "react-toastify";
 import AddButton from "../Components/AddButton";
 import Person from "../Components/People/Person";
 
-const PeoplePage = (props: IPage) => {
+const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
   const [peopleList, setPeopleList] = useState<IPerson[]>([]);
   const [isCreating, setIsCreating] = useState(false);
-  const { cookie, currentRole } = props;
 
   useEffect(() => {
     PeopleServices.getAllPeople()
