@@ -18,7 +18,7 @@ class PeopleServices {
   static getAllPeople = async () => {
     return await axios.get(`${url}/`);
   };
-  
+
   static getAllPeopleList = async () => {
     return await axios.get(`${url}/list`);
   };
@@ -28,16 +28,12 @@ class PeopleServices {
   };
 
   static updatePerson = async (personDetails: IUpdate) => {
-    return await axios({
-      method: "patch",
-      url: `${url}/${personDetails.id}`,
-      data: {
-        name: personDetails.name,
-        favoriteColor: personDetails.favoriteColor,
-        favoriteAnimal: personDetails.favoriteAnimal,
-        favoriteFood: personDetails.favoriteFood,
-        role: personDetails.role,
-      },
+    return await axios.patch(`${url}/${personDetails.id}`, {
+      name: personDetails.name,
+      favoriteColor: personDetails.favoriteColor,
+      favoriteAnimal: personDetails.favoriteAnimal,
+      favoriteFood: personDetails.favoriteFood,
+      role: personDetails.role,
     });
   };
 
@@ -46,11 +42,11 @@ class PeopleServices {
   };
 
   static uploadFile = async (personId: string, file: FormData) => {
-    return await axios.put(`${url}/addFileToPerson/${personId}/`, file);
+    return await axios.put(`${url}/${personId}/upload-file`, file);
   };
-  
+
   static selectUser = async (personId: string) => {
-    return await axios.get(`${configTs.URL}/selectUser/${personId}/`);
+    return await axios.get(`${configTs.URL}/${personId}/select`);
   };
 }
 
