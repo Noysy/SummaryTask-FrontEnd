@@ -48,6 +48,10 @@ class PeopleServices {
   static uploadFile = async (personId: string, file: FormData) => {
     return await axios.put(`${url}/addFileToPerson/${personId}/`, file);
   };
+  
+  static selectUser = async (personId: string) => {
+    return await axios.get(`${configTs.URL}/selectUser/${personId}/`);
+  };
 }
 
 export default PeopleServices;
