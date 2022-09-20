@@ -7,6 +7,7 @@ interface INameProps {
     groupName: string;
     deleteGroup: Function;
     groupId: string;
+  currentRole: string;
 }
 
 const NameDisabled = (props: INameProps) => {

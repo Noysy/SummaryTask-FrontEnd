@@ -6,6 +6,7 @@ interface IGroupsOpenProps {
     setIsGroupsOpen: Function;
     groupsAsElements: JSX.Element[];
     allGroups: JSX.Element[];
+  currentRole: string;
 }
 
 const GroupsOpen = (props: IGroupsOpenProps) => {

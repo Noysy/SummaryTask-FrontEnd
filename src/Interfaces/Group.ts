@@ -1,32 +1,35 @@
-import { IPerson } from './Person';
+import { IPerson } from "./Person";
 
 export interface INewGroup {
-    name: string;
+  name: string;
 }
 
 export interface IGroup extends INewGroup {
-    id: string;
+  id: string;
 }
 
 export interface IGroupProps extends IGroup {
-    setGroupList: Function;
-    groupList: IGroup[];
+  setGroupList: Function;
+  groupList: IGroup[];
+  currentRole: string;
 }
 
 export interface IGroupsProps extends IGroup {
-    gettingGroups: Function;
+  gettingGroups: Function;
+  currentRole: string;
 }
 
 export interface IIdProps {
-    id: string;
+  id: string;
 }
 
 export interface IPeopleProps extends IPerson {
-    groupId: string;
-    gettingPeople: Function;
+  groupId: string;
+  gettingPeople: Function;
+  currentRole: string;
 }
 
 export interface IUpdateNameProps extends IGroup {
-    isNameEditable: boolean;
-    setIsNameEditable: Function;
+  isNameEditable: boolean;
+  setIsNameEditable: Function;
 }

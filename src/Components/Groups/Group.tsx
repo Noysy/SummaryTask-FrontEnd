@@ -27,6 +27,7 @@ const Group: React.FC<IGroupProps> = ({
   name,
   setGroupList,
   groupList,
+  currentRole,
 }) => {
   const [isNameEditable, setIsNameEditable] = useState(false);
   const [isPeopleOpen, setIsPeopleOpen] = useState(false);
@@ -185,6 +186,7 @@ const Group: React.FC<IGroupProps> = ({
         role={person.role}
         groupId={id}
         gettingPeople={gettingPeople}
+        currentRole={currentRole}
       />
     );
   });
@@ -196,6 +198,7 @@ const Group: React.FC<IGroupProps> = ({
         name={group.name}
         gettingGroups={gettingGroups}
         key={group.id}
+        currentRole={currentRole}
       />
     );
   });
@@ -232,6 +235,7 @@ const Group: React.FC<IGroupProps> = ({
                 groupName={groupName}
                 deleteGroup={deleteGroup}
                 groupId={id}
+                currentRole={currentRole}
               />
             )}
           </div>
@@ -242,6 +246,7 @@ const Group: React.FC<IGroupProps> = ({
                   setIsPeopleOpen={setIsPeopleOpen}
                   peopleAsElements={peopleAsElements}
                   allPeople={allPeople}
+                  currentRole={currentRole}
                 />
               ) : (
                 <Button
@@ -263,6 +268,7 @@ const Group: React.FC<IGroupProps> = ({
                   setIsGroupsOpen={setIsGroupsOpen}
                   groupsAsElements={groupsAsElements}
                   allGroups={allGroups}
+                  currentRole={currentRole}
                 />
               ) : (
                 <Button

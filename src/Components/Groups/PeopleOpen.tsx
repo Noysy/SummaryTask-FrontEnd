@@ -6,6 +6,7 @@ interface IPeopleOpenProps {
     setIsPeopleOpen: Function;
     peopleAsElements: JSX.Element[];
     allPeople: JSX.Element[];
+  currentRole: string;
 }
 
 const PeopleOpen = (props: IPeopleOpenProps) => {
