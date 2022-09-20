@@ -156,7 +156,7 @@ const Group: React.FC<IGroupProps> = ({
   const gettingPeople = () => {
     GroupServices.getGroupsPeople(id)
       .then((res) => {
-        setPeople(res.data[0].people);
+        setPeople(res.data.people);
       })
       .catch((err) => {
         return toast.error(err.response.data);
