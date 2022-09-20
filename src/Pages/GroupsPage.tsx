@@ -10,6 +10,7 @@ import { IPage } from "../Interfaces/Person";
 const GroupPage = (props: IPage) => {
   const [groupList, setGroupList] = useState<IGroup[]>([]);
   const [isCreating, setIsCreating] = useState(false);
+  const { cookie, currentRole } = props;
 
   useEffect(() => {
     GroupServices.getAllGroups()
@@ -24,7 +25,7 @@ const GroupPage = (props: IPage) => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, [props.cookie]);
+  }, [cookie]);
 
   const fullList = groupList.map((group) => {
     return (
@@ -42,6 +43,7 @@ const GroupPage = (props: IPage) => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
+        currentRole === "ADMIN" &&
         fullList.length > 0 && (
           <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
         )

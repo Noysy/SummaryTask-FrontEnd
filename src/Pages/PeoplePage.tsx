@@ -9,6 +9,7 @@ import Person from "../Components/People/Person";
 const PeoplePage = (props: IPage) => {
   const [peopleList, setPeopleList] = useState<IPerson[]>([]);
   const [isCreating, setIsCreating] = useState(false);
+  const { cookie, currentRole } = props;
 
   useEffect(() => {
     PeopleServices.getAllPeople()
@@ -19,7 +20,7 @@ const PeoplePage = (props: IPage) => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, [props.cookie]);
+  }, [cookie]);
 
   const fullList = peopleList.map((person) => {
     return (
@@ -41,6 +42,7 @@ const PeoplePage = (props: IPage) => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
+        currentRole === "ADMIN" &&
         fullList.length > 0 && (
           <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
         )

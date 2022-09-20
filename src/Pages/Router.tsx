@@ -75,11 +75,16 @@ const Main = () => {
             path="/people"
             element={
               <div>
-                <PeoplePage cookie={currentCookie} />
+                <PeoplePage cookie={currentCookie} currentRole={currentRole} />
               </div>
             }
           />
-          <Route path="/groups" element={<GroupPage cookie={currentCookie}/>} />
+          <Route
+            path="/groups"
+            element={
+              <GroupPage cookie={currentCookie} currentRole={currentRole} />
+            }
+          />
         </Routes>
       </div>
       <ToastContainer
