@@ -65,6 +65,9 @@ const Main = () => {
               Groups
             </Button>
           </Link>
+          <Select sx={{ width: 400 }} onChange={handleChange} defaultValue={""}>
+            {people}
+          </Select>
           <hr />
         </div>
         <Routes>
