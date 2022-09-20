@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useTranslation } from "react-i18next";
 
 const Groups = (props: IGroupsProps) => {
-  const { gettingGroups } = props;
+  const { gettingGroups, currentRole } = props;
 
   const { t } = useTranslation();
 
@@ -27,17 +27,19 @@ const Groups = (props: IGroupsProps) => {
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {props.name}
           </Typography>
-          <Fab
-            color="error"
-            aria-label="delete"
-            className="delete-icon"
-            size="small"
-            onClick={() => {
-              removeGroup();
-            }}
-          >
-            <DeleteIcon sx={{ fontSize: "1em" }} />
-          </Fab>
+          {currentRole === "ADMIN" && (
+            <Fab
+              color="error"
+              aria-label="delete"
+              className="delete-icon"
+              size="small"
+              onClick={() => {
+                removeGroup();
+              }}
+            >
+              <DeleteIcon sx={{ fontSize: "1em" }} />
+            </Fab>
+          )}
         </div>
         <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
           {props.id}
