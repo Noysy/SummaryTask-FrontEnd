@@ -19,6 +19,7 @@ export interface ICreatePerson {
 
 export interface IPersonFunc extends IPerson {
   setPeopleList: Function;
+  currentRole: string
 }
 
 export interface IAutocomplete {
@@ -33,6 +34,7 @@ export interface IPersonDetails extends IPerson {
 
 export interface personDisabledDetails extends IPersonDetails {
   deletePerson: Function;
+  currentRole: string
 }
 
 export interface personEnabledDetails extends IPersonDetails {

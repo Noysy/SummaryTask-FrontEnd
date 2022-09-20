@@ -33,6 +33,7 @@ const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
         files={person.files}
         id={person.id}
         setPeopleList={setPeopleList}
+        currentRole={currentRole}
       />
     );
   });
