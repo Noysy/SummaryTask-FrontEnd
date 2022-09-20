@@ -1,24 +1,25 @@
 import { useEffect, useState } from "react";
-import { IPerson } from "../Interfaces/Person";
+import { IPage, IPerson } from "../Interfaces/Person";
 import PeopleServices from "../Services/People";
 import CreatePerson from "../Components/People/CreatePerson";
 import { toast } from "react-toastify";
 import AddButton from "../Components/AddButton";
 import Person from "../Components/People/Person";
 
-const PeoplePage = () => {
+const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
   const [peopleList, setPeopleList] = useState<IPerson[]>([]);
   const [isCreating, setIsCreating] = useState(false);
 
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
+        if (!res.data) return;
         setPeopleList(res.data);
       })
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, []);
+  }, [cookie]);
 
   const fullList = peopleList.map((person) => {
     return (
@@ -32,6 +33,7 @@ const PeoplePage = () => {
         files={person.files}
         id={person.id}
         setPeopleList={setPeopleList}
+        currentRole={currentRole}
       />
     );
   });
@@ -40,7 +42,10 @@ const PeoplePage = () => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
-        <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        currentRole === "ADMIN" &&
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       ) : (
         <CreatePerson
           setIsCreating={setIsCreating}

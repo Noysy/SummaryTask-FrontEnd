@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import PeopleServices from "../../Services/People";
 
 const Person = (props: IPersonFunc) => {
-  const { setPeopleList, files } = props;
+  const { setPeopleList, files, currentRole } = props;
   const [areSlotsEnabled, setAreSlotsEnabled] = useState(false);
 
   const updatePerson = (
@@ -77,6 +77,7 @@ const Person = (props: IPersonFunc) => {
             areSlotsEnabled={areSlotsEnabled}
             deletePerson={deletePerson}
             files={files}
+            currentRole={currentRole}
           />
         ) : (
           <PersonEnabledDetails

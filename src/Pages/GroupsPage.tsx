@@ -5,14 +5,16 @@ import GroupServices from "../Services/Groups";
 import { IGroup } from "../Interfaces/Group";
 import Group from "../Components/Groups/Group";
 import CreateGroup from "../Components/Groups/CreateGroup";
+import { IPage } from "../Interfaces/Person";
 
-const GroupPage = () => {
+const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
   const [groupList, setGroupList] = useState<IGroup[]>([]);
   const [isCreating, setIsCreating] = useState(false);
 
   useEffect(() => {
     GroupServices.getAllGroups()
       .then((res) => {
+        if (!res.data) return;
         setGroupList(
           res.data.map((group: IGroup) => {
             return { id: group.id, name: group.name };
@@ -22,7 +24,7 @@ const GroupPage = () => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, []);
+  }, [cookie]);
 
   const fullList = groupList.map((group) => {
     return (
@@ -32,6 +34,7 @@ const GroupPage = () => {
         name={group.name}
         setGroupList={setGroupList}
         groupList={groupList}
+        currentRole={currentRole}
       />
     );
   });
@@ -40,7 +43,10 @@ const GroupPage = () => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
-        <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        currentRole === "ADMIN" &&
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       ) : (
         <CreateGroup
           setIsCreating={setIsCreating}

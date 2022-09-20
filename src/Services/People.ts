@@ -18,6 +18,10 @@ class PeopleServices {
   static getAllPeople = async () => {
     return await axios.get(`${url}/`);
   };
+  
+  static getAllPeopleList = async () => {
+    return await axios.get(`${url}/list`);
+  };
 
   static createPerson = async (personDetails: ICreatePerson) => {
     return await axios.post(`${url}/`, personDetails);

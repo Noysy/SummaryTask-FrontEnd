@@ -12,6 +12,44 @@ import Cookies from "universal-cookie";
 
 const Main = () => {
   const [people, setPeople] = useState();
+  const [allPeople, setAllPeople] = useState<IPerson[]>();
+  const [currentCookie, setCurrentCookie] = useState<string>("");
+  const [currentRole, setCurrentRole] = useState<string>("");
+
+  useEffect(() => {
+    PeopleServices.getAllPeopleList()
+      .then((res) => {
+        setAllPeople(res.data);
+        setPeople(
+          res.data.map((person: IPerson) => {
+            return (
+              <MenuItem key={person.id} value={person.id}>
+                {person.name}
+              </MenuItem>
+            );
+          })
+        );
+      })
+      .catch((err) => {
+        return toast.error(err.response.data);
+      });
+  }, []);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    PeopleServices.selectUser(event.target.value).then((res) => {
+      const cookies = new Cookies();
+      cookies.set("jwt", `Barrier ${res.data}`, { path: "/" });
+      setCurrentCookie(cookies.get("jwt"));
+    });
+    if (allPeople) {
+      const person = allPeople.find((person: IPerson) => {
+        return person.id === event.target.value;
+      });
+      if (person) {
+        setCurrentRole(person.role);
+      }
+    }
+  };
 
   return (
     <>
@@ -34,11 +72,16 @@ const Main = () => {
             path="/people"
             element={
               <div>
-                <PeoplePage />
+                <PeoplePage cookie={currentCookie} currentRole={currentRole} />
               </div>
             }
           />
-          <Route path="/groups" element={<GroupPage />} />
+          <Route
+            path="/groups"
+            element={
+              <GroupPage cookie={currentCookie} currentRole={currentRole} />
+            }
+          />
         </Routes>
       </div>
       <ToastContainer

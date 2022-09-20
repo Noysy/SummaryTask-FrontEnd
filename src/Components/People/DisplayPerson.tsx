@@ -27,6 +27,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     favoriteColor,
     favoriteFood,
     files,
+    currentRole,
   } = props;
   const [personFiles, setPersonFiles] = useState<FileDetails[]>([]);
   const [isFilesOpen, setIsFilesOpen] = useState<boolean>(false);
@@ -119,26 +120,28 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
         )}
       </CardContent>
       <div id="person-buttons">
-        <CardActions>
-          <Fab
-            color="default"
-            aria-label="edit"
-            size="small"
-            onClick={() => {
-              setAreSlotsEnabled(!areSlotsEnabled);
-            }}
-          >
-            <EditIcon />
-          </Fab>
-          <Fab
-            color="error"
-            aria-label="delete"
-            size="small"
-            onClick={() => deletePerson(id)}
-          >
-            <DeleteIcon />
-          </Fab>
-        </CardActions>
+        {currentRole === "ADMIN" && (
+          <CardActions>
+            <Fab
+              color="default"
+              aria-label="edit"
+              size="small"
+              onClick={() => {
+                setAreSlotsEnabled(!areSlotsEnabled);
+              }}
+            >
+              <EditIcon />
+            </Fab>
+            <Fab
+              color="error"
+              aria-label="delete"
+              size="small"
+              onClick={() => deletePerson(id)}
+            >
+              <DeleteIcon />
+            </Fab>
+          </CardActions>
+        )}
         <Button
           variant="contained"
           component="label"
