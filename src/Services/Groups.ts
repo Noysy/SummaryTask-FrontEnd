@@ -23,11 +23,11 @@ class GroupServices {
   };
 
   static removeGroup = async (groupId: string) => {
-    return await axios.delete(`${url}/removeParent/${groupId}`);
+    return await axios.delete(`${url}/parent/${groupId}`);
   };
 
   static addGroup = async (groupId: string, parentId: string) => {
-    return await axios.put(`${url}/addParent/${groupId}/${parentId}`);
+    return await axios.put(`${url}/parent/${groupId}/${parentId}`);
   };
 
   static deleteGroup = async (groupId: string) => {
