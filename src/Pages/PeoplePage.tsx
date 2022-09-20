@@ -13,6 +13,7 @@ const PeoplePage = () => {
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
+        if (!res.data) return;
         setPeopleList(res.data);
       })
       .catch((err) => {
@@ -40,7 +41,9 @@ const PeoplePage = () => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
-        <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       ) : (
         <CreatePerson
           setIsCreating={setIsCreating}
