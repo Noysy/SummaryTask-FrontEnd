@@ -13,6 +13,7 @@ const GroupPage = () => {
   useEffect(() => {
     GroupServices.getAllGroups()
       .then((res) => {
+        if (!res.data) return;
         setGroupList(
           res.data.map((group: IGroup) => {
             return { id: group.id, name: group.name };
@@ -40,7 +41,9 @@ const GroupPage = () => {
     <div id="main-people">
       {fullList}
       {!isCreating ? (
-        <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       ) : (
         <CreateGroup
           setIsCreating={setIsCreating}
