@@ -61,3 +61,7 @@ export interface FileDetails {
   name: string;
   url: string;
 }
+
+export interface IPage {
+  cookie: string;
+}

@@ -12,6 +12,7 @@ import Cookies from "universal-cookie";
 
 const Main = () => {
   const [people, setPeople] = useState();
+  const [currentCookie, setCurrentCookie] = useState("");
 
   useEffect(() => {
     PeopleServices.getAllPeopleList()
@@ -35,6 +36,7 @@ const Main = () => {
     PeopleServices.selectUser(event.target.value).then((res) => {
       const cookies = new Cookies();
       cookies.set("jwt", `Barrier ${res.data}`, { path: "/" });
+      setCurrentCookie(cookies.get("jwt"));
     });
   };
 
@@ -62,11 +64,11 @@ const Main = () => {
             path="/people"
             element={
               <div>
-                <PeoplePage />
+                <PeoplePage cookie={currentCookie} />
               </div>
             }
           />
-          <Route path="/groups" element={<GroupPage />} />
+          <Route path="/groups" element={<GroupPage cookie={currentCookie}/>} />
         </Routes>
       </div>
       <ToastContainer

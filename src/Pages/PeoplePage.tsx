@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { IPerson } from "../Interfaces/Person";
+import { IPage, IPerson } from "../Interfaces/Person";
 import PeopleServices from "../Services/People";
 import CreatePerson from "../Components/People/CreatePerson";
 import { toast } from "react-toastify";
 import AddButton from "../Components/AddButton";
 import Person from "../Components/People/Person";
 
-const PeoplePage = () => {
+const PeoplePage = (props: IPage) => {
   const [peopleList, setPeopleList] = useState<IPerson[]>([]);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -19,7 +19,7 @@ const PeoplePage = () => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, []);
+  }, [props.cookie]);
 
   const fullList = peopleList.map((person) => {
     return (

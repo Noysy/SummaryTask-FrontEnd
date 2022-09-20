@@ -5,8 +5,9 @@ import GroupServices from "../Services/Groups";
 import { IGroup } from "../Interfaces/Group";
 import Group from "../Components/Groups/Group";
 import CreateGroup from "../Components/Groups/CreateGroup";
+import { IPage } from "../Interfaces/Person";
 
-const GroupPage = () => {
+const GroupPage = (props: IPage) => {
   const [groupList, setGroupList] = useState<IGroup[]>([]);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -23,7 +24,7 @@ const GroupPage = () => {
       .catch((err) => {
         return toast.error(err.response.data);
       });
-  }, []);
+  }, [props.cookie]);
 
   const fullList = groupList.map((group) => {
     return (
