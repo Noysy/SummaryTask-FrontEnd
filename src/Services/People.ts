@@ -46,7 +46,7 @@ class PeopleServices {
   };
 
   static selectUser = async (personId: string) => {
-    return await axios.get(`${configTs.URL}/${personId}/select`);
+    return await axios.get(`${url}/${personId}/select`);
   };
 }
 

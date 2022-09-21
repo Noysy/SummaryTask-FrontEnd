@@ -35,7 +35,7 @@ class GroupServices {
   };
 
   static updateName = async (groupId: string, name: string) => {
-    return await axios.patch(`${url}/${groupId}/name`, { name });
+    return await axios.put(`${url}/${groupId}/name`, { name });
   };
 
   static createGroup = async (name: string) => {
