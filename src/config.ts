@@ -1,7 +1,7 @@
 const configTs = {
     URL: 'http://localhost:7071',
-    PEOPLE_API: '/people',
-    GROUP_API: '/groups'
+    PEOPLE_API: '/person',
+    GROUP_API: '/group'
 };
 
 export default configTs;
