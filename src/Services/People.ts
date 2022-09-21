@@ -28,7 +28,7 @@ class PeopleServices {
   };
 
   static updatePerson = async (personDetails: IUpdate) => {
-    return await axios.patch(`${url}/${personDetails.id}`, {
+    return await axios.put(`${url}/${personDetails.id}`, {
       name: personDetails.name,
       favoriteColor: personDetails.favoriteColor,
       favoriteAnimal: personDetails.favoriteAnimal,
