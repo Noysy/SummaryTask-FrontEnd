@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import config from "../config";
 import { ICreatePerson, IUpdate } from "../Interfaces/Person";
 
-const url = `${config.API_BASE_URL}${config.PEOPLE_API}`;
+const url = `${config.API_BASE_URL}/person`;
 
 axios.interceptors.request.use((config) => {
   if (config.headers === undefined) config.headers = {};
