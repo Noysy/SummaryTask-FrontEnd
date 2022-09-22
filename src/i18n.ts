@@ -2,7 +2,7 @@ import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
-  he: {
+  en: {
     translation: {
         group: {
             removeParent: "Byebye",
@@ -15,7 +15,7 @@ const resources = {
 
 i18next.use(initReactI18next).init({
   resources,
-  lng: "he",
+  lng: "en",
   interpolation: {
     escapeValue: false,
   },
