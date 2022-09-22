@@ -1,9 +1,9 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
-import configTs from "../config";
+import config from "../config";
 import { ICreatePerson, IUpdate } from "../Interfaces/Person";
 
-const url = `${configTs.URL}${configTs.PEOPLE_API}`;
+const url = `${config.API_BASE_URL}${config.PEOPLE_API}`;
 
 axios.interceptors.request.use((config) => {
   if (config.headers === undefined) config.headers = {};

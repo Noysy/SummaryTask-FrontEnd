@@ -1,6 +1,6 @@
 import axios from "axios";
-import configTs from "../config";
-const url = `${configTs.URL}${configTs.GROUP_API}`;
+import config from "../config";
+const url = `${config.API_BASE_URL}${config.GROUP_API}`;
 class GroupServices {
   static getAllGroups = async () => {
     return await axios.get(`${url}/`);
