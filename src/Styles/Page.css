@@ -5,10 +5,10 @@
   position: absolute;
   margin: 5%;
   padding: 2em;
-  background-color: rgba(255, 255, 255, 0.644);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 0.5em;
   border: 2px solid white;
-  border-color: rgba(255, 255, 255, 0.432);
+  border-color: rgba(255, 255, 255, 0.4);
   min-width: 19em;
   width: 85%;
 }
@@ -24,13 +24,13 @@ body {
 .link button {
   font-size: 1em;
   font-weight: 100;
-  color: rgba(71, 80, 110, 0.527);
+  color: rgb(107, 109, 117);
   border-radius: 0;
 }
 
 hr {
   border-bottom: 1px transparent;
-  border-top: 1px solid rgba(0, 0, 0, 0.336);
+  border-top: 1px solid rgb(133, 133, 133)
 }
 
 #person-card {
