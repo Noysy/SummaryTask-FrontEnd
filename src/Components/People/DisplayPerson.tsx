@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { StyledLink } from "../../Styles/styledComponents";
+import { StyledLink, StyledTypography } from "../../Styles/styledComponents";
 
 const PersonDisabledDetails = (props: personDisabledDetails) => {
   const {
@@ -55,22 +55,15 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
   return (
     <>
       <CardContent>
-        <Typography variant="h5" component="div"></Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {name}
         </Typography>
-        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
-          Favorite color: {favoriteColor}
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
-          Favorite food: {favoriteFood}
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
-          Favorite animal: {favoriteAnimal}
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 1.2 }} marginLeft={2}>
-          Role: {role}
-        </Typography>
+        <StyledTypography variant="body2">
+          <span>Favorite color: {favoriteColor}</span>
+          <span>Favorite food: {favoriteFood}</span>
+          <span>Favorite animal: {favoriteAnimal}</span>
+          <span>Role: {role}</span>
+        </StyledTypography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {id}
         </Typography>
