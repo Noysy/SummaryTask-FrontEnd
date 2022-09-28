@@ -5,12 +5,12 @@ import GroupServices from "../../Services/Groups";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const People = (props: IPeopleProps) => {
-  const { gettingPeople, currentRole } = props;
+  const { getPeople, currentRole } = props;
   const {name, id} = props.person
   const removePerson = () => {
     GroupServices.removePerson(props.groupId, id)
       .then(() => {
-        gettingPeople();
+        getPeople();
         toast.success(`${name} will be missed...`);
       })
       .catch((err) => toast.error(err.response.data));

@@ -43,7 +43,7 @@ const Group: React.FC<IGroupProps> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    gettingGroups();
+    getGroups();
   }, [groupList]);
 
   const deleteGroup = () => {
@@ -140,7 +140,7 @@ const Group: React.FC<IGroupProps> = ({
 
   const addPerson = (personId: string) => {
     GroupServices.addPerson(id, personId)
-      .then(() => gettingPeople())
+      .then(() => getPeople())
       .catch((err) => {
         return toast.error(err.response.data);
       });
@@ -148,13 +148,13 @@ const Group: React.FC<IGroupProps> = ({
 
   const addGroup = (groupId: string) => {
     GroupServices.addGroup(groupId, id)
-      .then(() => gettingGroups())
+      .then(() => getGroups())
       .catch((err) => {
         return toast.error(err.response.data);
       });
   };
 
-  const gettingPeople = () => {
+  const getPeople = () => {
     GroupServices.getGroupsPeople(id)
       .then((res) => {
         setPeople(res.data.people);
@@ -164,7 +164,7 @@ const Group: React.FC<IGroupProps> = ({
       });
   };
 
-  const gettingGroups = () => {
+  const getGroups = () => {
     GroupServices.getGroupsChildren(id)
       .then((res) => {
         setGroups(res.data.children);
@@ -180,7 +180,7 @@ const Group: React.FC<IGroupProps> = ({
         key={person.id}
         person={person}
         groupId={id}
-        gettingPeople={gettingPeople}
+        getPeople={getPeople}
         currentRole={currentRole}
       />
     );
@@ -191,7 +191,7 @@ const Group: React.FC<IGroupProps> = ({
       <Groups
         id={group.id}
         name={group.name}
-        gettingGroups={gettingGroups}
+        getGroups={getGroups}
         key={group.id}
         currentRole={currentRole}
       />
@@ -248,7 +248,7 @@ const Group: React.FC<IGroupProps> = ({
                   variant="contained"
                   color="inherit"
                   onClick={() => {
-                    gettingPeople();
+                    getPeople();
                     setIsPeopleOpen(!isPeopleOpen);
                   }}
                   endIcon={<KeyboardArrowUpIcon />}
@@ -270,7 +270,7 @@ const Group: React.FC<IGroupProps> = ({
                   variant="contained"
                   color="inherit"
                   onClick={() => {
-                    gettingGroups();
+                    getGroups();
                     setIsGroupsOpen(!isGroupsOpen);
                   }}
                   endIcon={<KeyboardArrowUpIcon />}

@@ -15,7 +15,7 @@ export interface IGroupProps extends IGroup {
 }
 
 export interface IGroupsProps extends IGroup {
-  gettingGroups: Function;
+  getGroups: Function;
   currentRole: string;
 }
 
@@ -26,7 +26,7 @@ export interface IIdProps {
 export interface IPeopleProps {
   person: PersonWithId;
   groupId: string;
-  gettingPeople: Function;
+  getPeople: Function;
   currentRole: string;
 }
 

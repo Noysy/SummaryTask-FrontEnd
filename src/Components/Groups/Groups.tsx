@@ -6,14 +6,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useTranslation } from "react-i18next";
 
 const Groups = (props: IGroupsProps) => {
-  const { gettingGroups, currentRole } = props;
+  const { getGroups, currentRole } = props;
 
   const { t } = useTranslation();
 
   const removeGroup = () => {
     GroupServices.removeGroup(props.id)
       .then(() => {
-        gettingGroups();
+        getGroups();
         const success = t("group.removeParent");
         toast.success(`${success} ${props.name} :)`);
       })
