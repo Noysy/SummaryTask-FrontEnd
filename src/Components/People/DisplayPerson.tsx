@@ -20,17 +20,13 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     setAreSlotsEnabled,
     areSlotsEnabled,
     deletePerson,
-    id,
-    name,
-    favoriteAnimal,
-    role,
-    favoriteColor,
-    favoriteFood,
-    files,
+    person,
     currentRole,
   } = props;
   const [personFiles, setPersonFiles] = useState<FileDetails[]>([]);
   const [isFilesOpen, setIsFilesOpen] = useState<boolean>(false);
+  const { id, files, name, favoriteAnimal, favoriteColor, favoriteFood, role } =
+    person;
 
   useEffect(() => {
     if (files)

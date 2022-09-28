@@ -1,6 +1,6 @@
 import { Card, Zoom } from "@mui/material";
 import { toast } from "react-toastify";
-import { IPerson } from "../../Interfaces/Person";
+import { Person, PersonWithId } from "../../Interfaces/Person";
 import PeopleServices from "../../Services/People";
 import PersonEnabledDetails from "./EditPerson";
 
@@ -13,26 +13,17 @@ interface IProps {
 const CreatePerson = (props: IProps) => {
   const { isCreating, setIsCreating, setPeopleList } = props;
 
-  const createPerson = (
-    name: string,
-    favoriteAnimal: string,
-    favoriteColor: string,
-    favoriteFood: string,
-    role: string,
-    group: string
-  ) => {
+  const createPerson = (person: Person, group: string) => {
+    const { name, favoriteAnimal, favoriteColor, favoriteFood, role } = person;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
+      
     PeopleServices.createPerson({
-      name: name,
-      favoriteColor: favoriteColor,
-      favoriteAnimal: favoriteAnimal,
-      favoriteFood: favoriteFood,
-      role: role,
+      person: person,
       group: group,
     })
       .then((res) => {
-        setPeopleList((peopleList: IPerson[]) => [
+        setPeopleList((peopleList: PersonWithId[]) => [
           ...peopleList,
           {
             id: res.data.id,
@@ -49,16 +40,20 @@ const CreatePerson = (props: IProps) => {
       .catch((err) => toast.error(err.response.data));
   };
 
+  const emptyPerson: PersonWithId = {
+    name: "",
+    favoriteColor: "",
+    favoriteAnimal: "",
+    favoriteFood: "",
+    role: "",
+    id: "",
+  };
+
   return (
     <Zoom in={isCreating}>
       <Card id="person-card">
         <PersonEnabledDetails
-          name=""
-          favoriteColor=""
-          favoriteAnimal=""
-          favoriteFood=""
-          role=""
-          id=""
+          person={emptyPerson}
           setAreSlotsEnabled={setIsCreating}
           areSlotsEnabled={isCreating}
           createPerson={createPerson}

@@ -1,4 +1,4 @@
-import { IPerson } from "./Person";
+import { PersonWithId } from "./Person";
 
 export interface INewGroup {
   name: string;
@@ -23,7 +23,8 @@ export interface IIdProps {
   id: string;
 }
 
-export interface IPeopleProps extends IPerson {
+export interface IPeopleProps {
+  person: PersonWithId;
   groupId: string;
   gettingPeople: Function;
   currentRole: string;

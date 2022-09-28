@@ -2,54 +2,34 @@ import { Card, Zoom } from "@mui/material";
 import { useState } from "react";
 import PersonEnabledDetails from "./EditPerson";
 import PersonDisabledDetails from "./DisplayPerson";
-import { IPerson, IPersonFunc } from "../../Interfaces/Person";
+import { IPersonFunc, PersonWithId } from "../../Interfaces/Person";
 import { toast } from "react-toastify";
 import PeopleServices from "../../Services/People";
 
 const Person = (props: IPersonFunc) => {
-  const { setPeopleList, files, currentRole } = props;
+  const { setPeopleList, person, currentRole } = props;
   const [areSlotsEnabled, setAreSlotsEnabled] = useState(false);
 
-  const updatePerson = (
-    id: string,
-    name: string,
-    favoriteAnimal: string,
-    favoriteColor: string,
-    favoriteFood: string,
-    role: string
-  ) => {
+  const updatePerson = (newPerson: PersonWithId) => {
+    const { name, favoriteAnimal, favoriteColor, favoriteFood, role } =
+      newPerson;
+    const { id, ...newDetails } = newPerson;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     PeopleServices.updatePerson({
-      id: id,
-      name: name,
-      favoriteColor: favoriteColor,
-      favoriteAnimal: favoriteAnimal,
-      favoriteFood: favoriteFood,
-      role: role,
+      id,
+      newPerson: newDetails,
     })
       .then(() => {
-        setPeopleList((peopleList: IPerson[]) =>
-          peopleList.map((person: IPerson) => {
-            if (person.id === id)
-              return {
-                id: id,
-                name: name,
-                favoriteColor: favoriteColor,
-                favoriteAnimal: favoriteAnimal,
-                favoriteFood: favoriteFood,
-                role: role,
-              };
-            return {
-              id: person.id,
-              name: person.name,
-              favoriteColor: person.favoriteColor,
-              favoriteAnimal: person.favoriteAnimal,
-              favoriteFood: person.favoriteFood,
-              role: person.role,
-            };
-          })
-        );
+        setPeopleList((peopleList: PersonWithId[]) => {
+          const copiedArray = [...peopleList];
+          const personIndex = copiedArray.findIndex(
+            (person) => person.id === id
+          );
+          copiedArray[personIndex] = newPerson;
+          return copiedArray;
+        });
+
         return toast.success("~(˘▾˘~) Updated successfully");
       })
       .catch((err) => toast.error(err.response.data));
@@ -58,7 +38,7 @@ const Person = (props: IPersonFunc) => {
   const deletePerson = (id: string) => {
     PeopleServices.deletePerson(id)
       .then(() => {
-        setPeopleList((peopleList: IPerson[]) =>
+        setPeopleList((peopleList: PersonWithId[]) =>
           peopleList.filter((person) => person.id !== id)
         );
 
@@ -76,7 +56,7 @@ const Person = (props: IPersonFunc) => {
             setAreSlotsEnabled={setAreSlotsEnabled}
             areSlotsEnabled={areSlotsEnabled}
             deletePerson={deletePerson}
-            files={files}
+            person={person}
             currentRole={currentRole}
           />
         ) : (

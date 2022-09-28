@@ -25,13 +25,11 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
     areSlotsEnabled,
     updatePerson,
     createPerson,
-    name,
-    favoriteFood,
-    favoriteAnimal,
-    role,
-    favoriteColor,
-    id,
+    person,
   } = props;
+
+  const { name, favoriteAnimal, favoriteColor, favoriteFood, role, id } =
+    person;
   const [newName, setName] = useState(name);
   const [newFavoriteColor, setFavoriteColor] = useState(favoriteColor);
   const [newFavoriteAnimal, setFavoriteAnimal] = useState(favoriteAnimal);
@@ -134,14 +132,14 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                 setAreSlotsEnabled(!areSlotsEnabled);
 
                 if (updatePerson) {
-                  updatePerson(
+                  updatePerson({
                     id,
-                    newName,
-                    newFavoriteAnimal,
-                    newFavoriteColor,
-                    newFavoriteFood,
-                    newRole
-                  );
+                    name: newName,
+                    favoriteAnimal: newFavoriteAnimal,
+                    favoriteColor: newFavoriteColor,
+                    favoriteFood: newFavoriteFood,
+                    role: newRole,
+                  });
                 }
               }}
             >
@@ -176,11 +174,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
 
                 if (createPerson) {
                   createPerson(
-                    newName,
-                    newFavoriteAnimal,
-                    newFavoriteColor,
-                    newFavoriteFood,
-                    newRole,
+                    {
+                      name: newName,
+                      favoriteAnimal: newFavoriteAnimal,
+                      favoriteColor: newFavoriteColor,
+                      favoriteFood: newFavoriteFood,
+                      role: newRole,
+                    },
                     group
                   );
                 }

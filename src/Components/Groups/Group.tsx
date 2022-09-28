@@ -13,7 +13,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import People from "./People";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
-import { IAutocomplete, IPerson } from "../../Interfaces/Person";
+import { IAutocomplete, PersonWithId } from "../../Interfaces/Person";
 import PeopleServices from "../../Services/People";
 import Groups from "./Groups";
 import NameEnabled from "./NameEnabled";
@@ -32,7 +32,7 @@ const Group: React.FC<IGroupProps> = ({
   const [isNameEditable, setIsNameEditable] = useState(false);
   const [isPeopleOpen, setIsPeopleOpen] = useState(false);
   const [isGroupsOpen, setIsGroupsOpen] = useState(false);
-  const [people, setPeople] = useState<IPerson[]>([]);
+  const [people, setPeople] = useState<PersonWithId[]>([]);
   const [groups, setGroups] = useState<IGroup[]>([]);
   const [groupName, setGroupName] = useState(name);
   const [allPeople, setAllPeople] = useState<JSX.Element[]>([]);
@@ -78,12 +78,12 @@ const Group: React.FC<IGroupProps> = ({
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
-        const peopleId = people.map((person: IPerson) => {
+        const peopleId = people.map((person: PersonWithId) => {
           return person.id;
         });
         setAllPeople(
           res.data
-            .filter((person: IPerson) => !peopleId.includes(person.id))
+            .filter((person: PersonWithId) => !peopleId.includes(person.id))
             .map((person: IAutocomplete, index: number) => {
               return (
                 <ListItemButton
@@ -178,12 +178,7 @@ const Group: React.FC<IGroupProps> = ({
     return (
       <People
         key={person.id}
-        id={person.id}
-        name={person.name}
-        favoriteAnimal={person.favoriteAnimal}
-        favoriteColor={person.favoriteColor}
-        favoriteFood={person.favoriteFood}
-        role={person.role}
+        person={person}
         groupId={id}
         gettingPeople={gettingPeople}
         currentRole={currentRole}

@@ -1,25 +1,25 @@
-export interface IPerson {
+export interface Person {
   name: string;
   favoriteColor: string;
   favoriteAnimal: string;
   favoriteFood: string;
   role: string;
-  id: string;
+}
+
+export interface PersonWithId extends Person {
   files?: FileDetails[];
+  id: string;
 }
 
 export interface ICreatePerson {
-  name: string;
-  favoriteColor: string;
-  favoriteAnimal: string;
-  favoriteFood: string;
-  role: string;
+  person: Person;
   group: string;
 }
 
-export interface IPersonFunc extends IPerson {
+export interface IPersonFunc {
+  person: PersonWithId
   setPeopleList: Function;
-  currentRole: string
+  currentRole: string;
 }
 
 export interface IAutocomplete {
@@ -27,14 +27,15 @@ export interface IAutocomplete {
   id: string;
 }
 
-export interface IPersonDetails extends IPerson {
+export interface IPersonDetails {
+  person: PersonWithId
   setAreSlotsEnabled: Function;
   areSlotsEnabled: boolean;
 }
 
 export interface personDisabledDetails extends IPersonDetails {
   deletePerson: Function;
-  currentRole: string
+  currentRole: string;
 }
 
 export interface personEnabledDetails extends IPersonDetails {
@@ -51,11 +52,7 @@ export interface IPeoplePageProps {
 }
 
 export interface IUpdate {
-  name?: string;
-  favoriteColor?: string;
-  favoriteAnimal?: string;
-  favoriteFood?: string;
-  role?: string;
+  newPerson?: Person;
   id: string;
 }
 

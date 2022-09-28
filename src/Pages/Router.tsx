@@ -7,12 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import GroupPage from "./GroupsPage";
 import PeopleServices from "../Services/People";
 import { useEffect, useState } from "react";
-import { IPerson } from "../Interfaces/Person";
+import { PersonWithId } from "../Interfaces/Person";
 import Cookies from "universal-cookie";
 
 const Main = () => {
   const [people, setPeople] = useState();
-  const [allPeople, setAllPeople] = useState<IPerson[]>();
+  const [allPeople, setAllPeople] = useState<PersonWithId[]>();
   const [currentCookie, setCurrentCookie] = useState<string>("");
   const [currentRole, setCurrentRole] = useState<string>("");
 
@@ -21,7 +21,7 @@ const Main = () => {
       .then((res) => {
         setAllPeople(res.data);
         setPeople(
-          res.data.map((person: IPerson) => {
+          res.data.map((person: PersonWithId) => {
             return (
               <MenuItem key={person.id} value={person.id}>
                 {person.name}
@@ -42,7 +42,7 @@ const Main = () => {
       setCurrentCookie(cookies.get("jwt"));
     });
     if (allPeople) {
-      const person = allPeople.find((person: IPerson) => {
+      const person = allPeople.find((person: PersonWithId) => {
         return person.id === event.target.value;
       });
       if (person) {

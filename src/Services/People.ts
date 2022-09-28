@@ -6,7 +6,7 @@ import { ICreatePerson, IUpdate } from "../Interfaces/Person";
 const url = `${config.API_BASE_URL}/person`;
 
 axios.interceptors.request.use((config) => {
-  if (config.headers === undefined) config.headers = {};
+  if (!config.headers) config.headers = {};
 
   const cookies = new Cookies();
   config.headers!["Authorization"] = cookies.get("jwt");
@@ -27,14 +27,8 @@ class PeopleServices {
     return await axios.post(`${url}/`, personDetails);
   };
 
-  static updatePerson = async (personDetails: IUpdate) => {
-    return await axios.put(`${url}/${personDetails.id}`, {
-      name: personDetails.name,
-      favoriteColor: personDetails.favoriteColor,
-      favoriteAnimal: personDetails.favoriteAnimal,
-      favoriteFood: personDetails.favoriteFood,
-      role: personDetails.role,
-    });
+  static updatePerson = async (personDetails: IUpdate) => {    
+    return await axios.put(`${url}/${personDetails.id}`, personDetails.newPerson);
   };
 
   static deletePerson = async (personId: string) => {

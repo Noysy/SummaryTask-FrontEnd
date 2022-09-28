@@ -6,11 +6,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const People = (props: IPeopleProps) => {
   const { gettingPeople, currentRole } = props;
+  const {name, id} = props.person
   const removePerson = () => {
-    GroupServices.removePerson(props.groupId, props.id)
+    GroupServices.removePerson(props.groupId, id)
       .then(() => {
         gettingPeople();
-        toast.success(`${props.name} will be missed...`);
+        toast.success(`${name} will be missed...`);
       })
       .catch((err) => toast.error(err.response.data));
   };
@@ -20,7 +21,7 @@ const People = (props: IPeopleProps) => {
       <CardContent>
         <div id="name-and-buttons">
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {props.name}
+            {name}
           </Typography>
           {currentRole === "ADMIN" && (
             <Fab
@@ -35,7 +36,7 @@ const People = (props: IPeopleProps) => {
           )}
         </div>
         <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom>
-          {props.id}
+          {id}
         </Typography>
       </CardContent>
     </Card>
