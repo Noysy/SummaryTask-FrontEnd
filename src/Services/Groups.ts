@@ -6,7 +6,7 @@ class GroupServices {
     return axios.get(`${url}/`);
   };
 
-  static getGroupsPeople = (groupId: string) => {
+  static getGroupMembers = (groupId: string) => {
     return axios.get(`${url}/${groupId}/details`);
   };
 
