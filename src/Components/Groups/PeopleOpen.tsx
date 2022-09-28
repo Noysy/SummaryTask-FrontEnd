@@ -26,7 +26,7 @@ const PeopleOpen = (props: IPeopleOpenProps) => {
         variant="contained"
         color="inherit"
         onClick={() =>
-          setIsPeopleOpen((isPeopleOpen: boolean) => !isPeopleOpen)
+          setIsPeopleOpen((prevValue: boolean) => !prevValue)
         }
         endIcon={<KeyboardArrowDownIcon />}
       >

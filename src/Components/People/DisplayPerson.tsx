@@ -74,7 +74,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
               variant="contained"
               color="inherit"
               onClick={() => {
-                setIsFilesOpen(!isFilesOpen);
+                setIsFilesOpen((prevValue: boolean) => !prevValue);
               }}
               endIcon={<KeyboardArrowDownIcon />}
             >
@@ -100,7 +100,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
             variant="contained"
             color="inherit"
             onClick={() => {
-              setIsFilesOpen(!isFilesOpen);
+              setIsFilesOpen((prevValue: boolean) => !prevValue);
             }}
             endIcon={<KeyboardArrowUpIcon />}
           >

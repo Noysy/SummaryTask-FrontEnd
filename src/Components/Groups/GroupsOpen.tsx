@@ -26,7 +26,7 @@ const GroupsOpen = (props: IGroupsOpenProps) => {
         variant="contained"
         color="inherit"
         onClick={() =>
-          setIsGroupsOpen((isGroupsOpen: boolean) => !isGroupsOpen)
+          setIsGroupsOpen((prevValue: boolean) => !prevValue)
         }
         endIcon={<KeyboardArrowDownIcon />}
       >

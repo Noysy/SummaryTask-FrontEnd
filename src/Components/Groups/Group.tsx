@@ -249,7 +249,7 @@ const Group: React.FC<IGroupProps> = ({
                   color="inherit"
                   onClick={() => {
                     getPeople();
-                    setIsPeopleOpen(!isPeopleOpen);
+                    setIsPeopleOpen((prevValue: boolean) => !prevValue);
                   }}
                   endIcon={<KeyboardArrowUpIcon />}
                 >
@@ -271,7 +271,7 @@ const Group: React.FC<IGroupProps> = ({
                   color="inherit"
                   onClick={() => {
                     getGroups();
-                    setIsGroupsOpen(!isGroupsOpen);
+                    setIsGroupsOpen((prevValue: boolean) => !prevValue);
                   }}
                   endIcon={<KeyboardArrowUpIcon />}
                 >

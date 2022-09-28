@@ -26,7 +26,7 @@ const NameDisabled = (props: INameProps) => {
             aria-label="edit"
             size="medium"
             onClick={() => {
-              setIsNameEditable((isNameEditable: boolean) => !isNameEditable);
+              setIsNameEditable((prevValue: boolean) => !prevValue);
             }}
           >
             <EditIcon />
