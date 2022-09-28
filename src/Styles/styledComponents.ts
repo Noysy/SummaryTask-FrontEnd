@@ -10,4 +10,5 @@ export const StyledTypography = styled(Typography)({
   flexDirection: "column",
   marginBottom: 7,
   marginLeft: 2,
+  lineHeight: 2
 });
