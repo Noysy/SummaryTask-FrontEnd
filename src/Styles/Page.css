@@ -52,15 +52,6 @@ hr {
   margin-left: 1em;
 }
 
-#details-slot {
-  font-size: 14px;
-}
-
-#name-slot {
-  font-size: 16px;
-  color: rgb(70 77 82);
-}
-
 #image {
   position: absolute;
   width: 10em;

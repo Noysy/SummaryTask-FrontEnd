@@ -59,80 +59,45 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
       });
   }, []);
 
+  const editDetailTextBox = (
+    fieldName: string,
+    field: string,
+    mb: number = -1,
+    mt: number = 1,
+    ml: number = 2,
+    fontSize: number = 14
+  ) => {
+    return (
+      <TextField
+        InputProps={{ disableUnderline: true, style: { fontSize } }}
+        sx={{ mb, ml, mt }}
+        placeholder={fieldName}
+        variant="standard"
+        value={newPerson[field]}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            [field]: event.target.value,
+          }))
+        }
+      />
+    );
+  };
+
   return (
     <CardContent>
-      <Typography variant="h5" component="div"></Typography>
-      <TextField
-        sx={{ mb: 0.4, mt: -0.5 }}
-        id="name-slot"
-        variant="standard"
-        placeholder="Name:"
-        value={newPerson.name}
-        onChange={(event) =>
-          setNewPerson((person: PersonWithId) => ({
-            ...person,
-            name: event.target.value,
-          }))
-        }
-      />
-      <TextField
-        InputProps={{ disableUnderline: true }}
-        sx={{ ml: 2, mb: -1 }}
-        id="details-slot"
-        variant="standard"
-        placeholder="Favorite color:"
-        value={newPerson.favoriteColor}
-        onChange={(event) =>
-          setNewPerson((person: PersonWithId) => ({
-            ...person,
-            favoriteColor: event.target.value,
-          }))
-        }
-      />
-      <TextField
-        InputProps={{ disableUnderline: true }}
-        sx={{ ml: 2, mb: -1 }}
-        id="details-slot"
-        variant="standard"
-        placeholder="Favorite food:"
-        value={newPerson.favoriteFood}
-        onChange={(event) =>
-          setNewPerson((person: PersonWithId) => ({
-            ...person,
-            favoriteFood: event.target.value,
-          }))
-        }
-      />
-      <TextField
-        InputProps={{ disableUnderline: true }}
-        sx={{ mb: -1, ml: 2 }}
-        id="details-slot"
-        placeholder="Favorite animal:"
-        variant="standard"
-        value={newPerson.favoriteAnimal}
-        onChange={(event) =>
-          setNewPerson((person: PersonWithId) => ({
-            ...person,
-            favoriteAnimal: event.target.value,
-          }))
-        }
-      />
-      <TextField
-        InputProps={{ disableUnderline: true }}
-        sx={{ mb: -1, ml: 2 }}
-        id="details-slot"
-        placeholder="Role:"
-        variant="standard"
-        value={newPerson.role}
-        onChange={(event) =>
-          setNewPerson((person: PersonWithId) => ({
-            ...person,
-            role: event.target.value,
-          }))
-        }
-      />
+      {editDetailTextBox("Name:", "name", 0.4, -0.5, 0, 16)}
+      {editDetailTextBox("Favorite color:", "favoriteColor")}
+      {editDetailTextBox("Favorite food:", "favoriteFood")}
+      {editDetailTextBox("Favorite animal:", "favoriteAnimal")}
+      {editDetailTextBox("Role:", "role")}
+
       {id ? (
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography
+          sx={{ fontSize: 14, mt: 1 }}
+          color="text.secondary"
+          gutterBottom
+        >
           {id}
         </Typography>
       ) : (

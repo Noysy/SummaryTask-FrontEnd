@@ -9,6 +9,7 @@ export interface Person {
 export interface PersonWithId extends Person {
   files?: FileDetails[];
   id: string;
+  [key: string]: unknown;
 }
 
 export interface ICreatePerson {
