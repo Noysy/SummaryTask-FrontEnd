@@ -14,7 +14,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
-import { personEnabledDetails } from "../../Interfaces/Person";
+import {
+  Person,
+  personEnabledDetails,
+  PersonWithId,
+} from "../../Interfaces/Person";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
 import { IGroup } from "../../Interfaces/Group";
@@ -28,13 +32,8 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
     person,
   } = props;
 
-  const { name, favoriteAnimal, favoriteColor, favoriteFood, role, id } =
-    person;
-  const [newName, setName] = useState(name);
-  const [newFavoriteColor, setFavoriteColor] = useState(favoriteColor);
-  const [newFavoriteAnimal, setFavoriteAnimal] = useState(favoriteAnimal);
-  const [newFavoriteFood, setFavoriteFood] = useState(favoriteFood);
-  const [newRole, setRole] = useState(role);
+  const { id } = person;
+  const [newPerson, setNewPerson] = useState(person);
   const [allGroups, setAllGroups] = useState();
   const [group, setGroup] = useState("");
 
@@ -68,8 +67,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         id="name-slot"
         variant="standard"
         placeholder="Name:"
-        value={newName}
-        onChange={(text) => setName(text.target.value)}
+        value={newPerson.name}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            name: event.target.value,
+          }))
+        }
       />
       <TextField
         InputProps={{ disableUnderline: true }}
@@ -77,8 +81,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         id="details-slot"
         variant="standard"
         placeholder="Favorite color:"
-        value={newFavoriteColor}
-        onChange={(text) => setFavoriteColor(text.target.value)}
+        value={newPerson.favoriteColor}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            favoriteColor: event.target.value,
+          }))
+        }
       />
       <TextField
         InputProps={{ disableUnderline: true }}
@@ -86,8 +95,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         id="details-slot"
         variant="standard"
         placeholder="Favorite food:"
-        value={newFavoriteFood}
-        onChange={(text) => setFavoriteFood(text.target.value)}
+        value={newPerson.favoriteFood}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            favoriteFood: event.target.value,
+          }))
+        }
       />
       <TextField
         InputProps={{ disableUnderline: true }}
@@ -95,8 +109,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         id="details-slot"
         placeholder="Favorite animal:"
         variant="standard"
-        value={newFavoriteAnimal}
-        onChange={(text) => setFavoriteAnimal(text.target.value)}
+        value={newPerson.favoriteAnimal}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            favoriteAnimal: event.target.value,
+          }))
+        }
       />
       <TextField
         InputProps={{ disableUnderline: true }}
@@ -104,8 +123,13 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
         id="details-slot"
         placeholder="Role:"
         variant="standard"
-        value={newRole}
-        onChange={(text) => setRole(text.target.value)}
+        value={newPerson.role}
+        onChange={(event) =>
+          setNewPerson((person: PersonWithId) => ({
+            ...person,
+            role: event.target.value,
+          }))
+        }
       />
       {id ? (
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -132,14 +156,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                 setAreSlotsEnabled(!areSlotsEnabled);
 
                 if (updatePerson) {
-                  updatePerson({
-                    id,
-                    name: newName,
-                    favoriteAnimal: newFavoriteAnimal,
-                    favoriteColor: newFavoriteColor,
-                    favoriteFood: newFavoriteFood,
-                    role: newRole,
-                  });
+                  updatePerson(newPerson);
                 }
               }}
             >
@@ -151,11 +168,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
               aria-label="cancel"
               size="small"
               onClick={() => {
-                setName(name);
-                setFavoriteColor(favoriteColor);
-                setFavoriteFood(favoriteFood);
-                setFavoriteAnimal(favoriteAnimal);
-                setRole(role);
+                setNewPerson(person);
                 setAreSlotsEnabled(!areSlotsEnabled);
               }}
             >
@@ -173,16 +186,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                 setAreSlotsEnabled(!areSlotsEnabled);
 
                 if (createPerson) {
-                  createPerson(
-                    {
-                      name: newName,
-                      favoriteAnimal: newFavoriteAnimal,
-                      favoriteColor: newFavoriteColor,
-                      favoriteFood: newFavoriteFood,
-                      role: newRole,
-                    },
-                    group
-                  );
+                  createPerson(newPerson, group);
                 }
               }}
             >

@@ -13,7 +13,7 @@ const Person = (props: IPersonFunc) => {
   const updatePerson = (newPerson: PersonWithId) => {
     const { name, favoriteAnimal, favoriteColor, favoriteFood, role } =
       newPerson;
-    const { id, ...newDetails } = newPerson;
+    const { id, files, ...newDetails } = newPerson;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     PeopleServices.updatePerson({
