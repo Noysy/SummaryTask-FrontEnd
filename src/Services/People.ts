@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import config from "../config";
 import { ICreatePerson, IUpdate } from "../Interfaces/Person";
 
-const url = `${config.API_BASE_URL}/person`;
+const peopleApiRoute = `${config.API_BASE_URL}/person`;
 
 axios.interceptors.request.use((config) => {
   if (!config.headers) config.headers = {};
@@ -16,33 +16,37 @@ axios.interceptors.request.use((config) => {
 
 class PeopleServices {
   static getAllPeople = async () => {
-    return (await axios.get(`${url}/`)).data;
+    return (await axios.get(`${peopleApiRoute}/`)).data;
   };
 
   static getAllPeopleList = async () => {
-    return (await axios.get(`${url}/list`)).data;
+    return (await axios.get(`${peopleApiRoute}/list`)).data;
   };
 
   static createPerson = async (personDetails: ICreatePerson) => {
-    return (await axios.post(`${url}/`, personDetails)).data;
+    return (await axios.post(`${peopleApiRoute}/`, personDetails)).data;
   };
 
   static updatePerson = async (personDetails: IUpdate) => {
     return (
-      await axios.put(`${url}/${personDetails.id}`, personDetails.newPerson)
+      await axios.put(
+        `${peopleApiRoute}/${personDetails.id}`,
+        personDetails.newPerson
+      )
     ).data;
   };
 
   static deletePerson = async (personId: string) => {
-    return (await axios.delete(`${url}/${personId}`)).data;
+    return (await axios.delete(`${peopleApiRoute}/${personId}`)).data;
   };
 
   static uploadFile = async (personId: string, file: FormData) => {
-    return (await axios.put(`${url}/${personId}/upload-file`, file)).data;
+    return (await axios.put(`${peopleApiRoute}/${personId}/upload-file`, file))
+      .data;
   };
 
   static selectUser = async (personId: string) => {
-    return (await axios.get(`${url}/${personId}/select`)).data;
+    return (await axios.get(`${peopleApiRoute}/${personId}/select`)).data;
   };
 }
 

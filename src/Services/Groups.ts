@@ -1,45 +1,45 @@
 import axios from "axios";
 import config from "../config";
-const url = `${config.API_BASE_URL}/group`;
+const groupApiRoute = `${config.API_BASE_URL}/group`;
 class GroupServices {
   static getAllGroups = async () => {
-    return (await axios.get(`${url}/`)).data;
+    return (await axios.get(`${groupApiRoute}/`)).data;
   };
 
   static getGroupMembers = async (groupId: string) => {
-    return (await axios.get(`${url}/${groupId}/details`)).data;
+    return (await axios.get(`${groupApiRoute}/${groupId}/details`)).data;
   };
 
   static getGroupsChildren = async (groupId: string) => {
-    return (await axios.get(`${url}/${groupId}/children`)).data;
+    return (await axios.get(`${groupApiRoute}/${groupId}/children`)).data;
   };
 
   static removePerson = async (groupId: string, personId: string) => {
-    return (await axios.delete(`${url}/${groupId}/person/${personId}`)).data;
+    return (await axios.delete(`${groupApiRoute}/${groupId}/person/${personId}`)).data;
   };
 
   static addPerson = async (groupId: string, personId: string) => {
-    return (await axios.put(`${url}/${groupId}/person/${personId}`)).data;
+    return (await axios.put(`${groupApiRoute}/${groupId}/person/${personId}`)).data;
   };
 
   static removeGroup = async (groupId: string) => {
-    return (await axios.delete(`${url}/${groupId}/parent`)).data;
+    return (await axios.delete(`${groupApiRoute}/${groupId}/parent`)).data;
   };
 
   static addGroup = async (groupId: string, parentId: string) => {
-    return (await axios.put(`${url}/${groupId}/parent/${parentId}`)).data;
+    return (await axios.put(`${groupApiRoute}/${groupId}/parent/${parentId}`)).data;
   };
 
   static deleteGroup = async (groupId: string) => {
-    return (await axios.delete(`${url}/${groupId}`)).data;
+    return (await axios.delete(`${groupApiRoute}/${groupId}`)).data;
   };
 
   static updateName = async (groupId: string, name: string) => {
-    return (await axios.put(`${url}/${groupId}/name`, { name })).data;
+    return (await axios.put(`${groupApiRoute}/${groupId}/name`, { name })).data;
   };
 
   static createGroup = async (name: string) => {
-    return (await axios.post(`${url}`, { name })).data;
+    return (await axios.post(`${groupApiRoute}`, { name })).data;
   };
 }
 
