@@ -9,7 +9,7 @@ interface IGroupsOpenProps {
   currentRole: string;
 }
 
-const GroupsOpen = (props: IGroupsOpenProps) => {
+const GroupsDropdown = (props: IGroupsOpenProps) => {
   const { setIsGroupsOpen, groupsAsElements, allGroups, currentRole } = props;
   const [groupOpen, setGroupOpen] = useState(false);
 
@@ -66,4 +66,4 @@ const GroupsOpen = (props: IGroupsOpenProps) => {
   );
 };
 
-export default GroupsOpen;
+export default GroupsDropdown;

@@ -20,13 +20,7 @@ import { toast } from "react-toastify";
 import { IGroup } from "../../Interfaces/Group";
 
 const PersonEnabledDetails = (props: personEnabledDetails) => {
-  const {
-    setAreSlotsEnabled,
-    areSlotsEnabled,
-    updatePerson,
-    createPerson,
-    person,
-  } = props;
+  const { setAreSlotsEnabled, updatePerson, createPerson, person } = props;
 
   const { id } = person;
   const [newPerson, setNewPerson] = useState(person);
@@ -147,7 +141,8 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
                 setAreSlotsEnabled((prevValue: boolean) => !prevValue);
 
                 if (createPerson) {
-                  createPerson(newPerson, group);
+                  const { id, ...personToCreate } = newPerson;
+                  createPerson(personToCreate, group);
                 }
               }}
             >
