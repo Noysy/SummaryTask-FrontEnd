@@ -17,7 +17,7 @@ const PeopleOpen = (props: IPeopleOpenProps) => {
     setOpen(false);
   };
   const handleToggle = () => {
-    setOpen(!open);
+    setOpen((prevValue: boolean) => !prevValue);
   };
 
   return (
@@ -25,9 +25,7 @@ const PeopleOpen = (props: IPeopleOpenProps) => {
       <Button
         variant="contained"
         color="inherit"
-        onClick={() =>
-          setIsPeopleOpen((prevValue: boolean) => !prevValue)
-        }
+        onClick={() => setIsPeopleOpen((prevValue: boolean) => !prevValue)}
         endIcon={<KeyboardArrowDownIcon />}
       >
         People

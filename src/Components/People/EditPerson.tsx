@@ -14,10 +14,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
-import {
-  personEnabledDetails,
-  PersonWithId,
-} from "../../Interfaces/Person";
+import { personEnabledDetails, PersonWithId } from "../../Interfaces/Person";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
 import { IGroup } from "../../Interfaces/Group";
@@ -117,7 +114,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
               aria-label="done"
               size="small"
               onClick={() => {
-                setAreSlotsEnabled(!areSlotsEnabled);
+                setAreSlotsEnabled((prevValue: boolean) => !prevValue);
 
                 if (updatePerson) {
                   updatePerson(newPerson);
@@ -133,7 +130,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
               size="small"
               onClick={() => {
                 setNewPerson(person);
-                setAreSlotsEnabled(!areSlotsEnabled);
+                setAreSlotsEnabled((prevValue: boolean) => !prevValue);
               }}
             >
               <ClearIcon />
@@ -147,7 +144,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
               aria-label="save"
               size="small"
               onClick={() => {
-                setAreSlotsEnabled(!areSlotsEnabled);
+                setAreSlotsEnabled((prevValue: boolean) => !prevValue);
 
                 if (createPerson) {
                   createPerson(newPerson, group);
@@ -162,7 +159,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
               aria-label="cancel"
               size="small"
               onClick={() => {
-                setAreSlotsEnabled(!areSlotsEnabled);
+                setAreSlotsEnabled((prevValue: boolean) => !prevValue);
               }}
             >
               <ClearIcon />

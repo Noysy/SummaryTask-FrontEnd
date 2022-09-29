@@ -17,7 +17,7 @@ const GroupsOpen = (props: IGroupsOpenProps) => {
     setGroupOpen(false);
   };
   const handleGroupToggle = () => {
-    setGroupOpen(!groupOpen);
+    setGroupOpen((prevValue: boolean) => !prevValue);
   };
 
   return (

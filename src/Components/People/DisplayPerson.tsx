@@ -116,7 +116,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
               aria-label="edit"
               size="small"
               onClick={() => {
-                setAreSlotsEnabled(!areSlotsEnabled);
+                setAreSlotsEnabled((prevValue: boolean) => !prevValue);
               }}
             >
               <EditIcon />
