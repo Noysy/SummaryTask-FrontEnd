@@ -42,17 +42,17 @@ const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
   return (
     <div id="main-people">
       {fullList}
-      {!isCreating ? (
-        currentRole === "ADMIN" &&
-        fullList.length > 0 && (
-          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
-        )
-      ) : (
+      {isCreating ? (
         <CreateGroup
           setIsCreating={setIsCreating}
           isCreating={isCreating}
           setGroupList={setGroupList}
         />
+      ) : (
+        currentRole === "ADMIN" &&
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       )}
     </div>
   );

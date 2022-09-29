@@ -50,7 +50,14 @@ const Person = (props: IPersonFunc) => {
   return (
     <Zoom in>
       <Card id="person-card">
-        {!areSlotsEnabled ? (
+        {areSlotsEnabled ? (
+          <PersonEnabledDetails
+            {...props}
+            setAreSlotsEnabled={setAreSlotsEnabled}
+            areSlotsEnabled={areSlotsEnabled}
+            updatePerson={updatePerson}
+          />
+        ) : (
           <PersonDisabledDetails
             {...props}
             setAreSlotsEnabled={setAreSlotsEnabled}
@@ -58,13 +65,6 @@ const Person = (props: IPersonFunc) => {
             deletePerson={deletePerson}
             person={person}
             currentRole={currentRole}
-          />
-        ) : (
-          <PersonEnabledDetails
-            {...props}
-            setAreSlotsEnabled={setAreSlotsEnabled}
-            areSlotsEnabled={areSlotsEnabled}
-            updatePerson={updatePerson}
           />
         )}
       </Card>

@@ -9,7 +9,7 @@ import Person from "../Components/People/Person";
 const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
   const [peopleList, setPeopleList] = useState<PersonWithId[]>([]);
   const [isCreating, setIsCreating] = useState(false);
-  
+
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
@@ -35,17 +35,17 @@ const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
   return (
     <div id="main-people">
       {fullList}
-      {!isCreating ? (
-        currentRole === "ADMIN" &&
-        fullList.length > 0 && (
-          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
-        )
-      ) : (
+      {isCreating ? (
         <CreatePerson
           setIsCreating={setIsCreating}
           isCreating={isCreating}
           setPeopleList={setPeopleList}
         />
+      ) : (
+        currentRole === "ADMIN" &&
+        fullList.length > 0 && (
+          <AddButton isCreating={isCreating} setIsCreating={setIsCreating} />
+        )
       )}
     </div>
   );
