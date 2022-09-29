@@ -1,6 +1,7 @@
 import { Backdrop, Button, List, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
+import { StyledList } from "../../Styles/styledComponents";
 
 interface IPeopleOpenProps {
   setIsPeopleOpen: Function;
@@ -44,18 +45,9 @@ const PeopleDropdown = (props: IPeopleOpenProps) => {
             onClick={handleClose}
           >
             <Typography>Choose a person to add:</Typography>
-            <List
-              sx={{
-                width: 300,
-                bgcolor: "background.paper",
-                color: "#444444",
-                borderRadius: 1,
-              }}
-              component="nav"
-              aria-label="secondary mailbox folder"
-            >
+            <StyledList aria-label="secondary mailbox folder">
               {allPeople}
-            </List>
+            </StyledList>
           </Backdrop>
         </div>
       )}

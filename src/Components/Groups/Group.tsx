@@ -21,7 +21,6 @@ import NameDisabled from "./NameDisabled";
 import PeopleDropdown from "./PeopleDropdown";
 import GroupsDropdown from "./GroupsDropdown";
 import { useTranslation } from "react-i18next";
-import { group } from "console";
 
 const Group: React.FC<IGroupProps> = ({
   id,
@@ -65,7 +64,7 @@ const Group: React.FC<IGroupProps> = ({
       .then(() => {
         setGroupList((groupList: IGroup[]) =>
           groupList.map((group: IGroup) => {
-            if (group.id === id) return { id: id, name: groupName };
+            if (group.id === id) return { id, name: groupName };
             return { id: group.id, name: group.name };
           })
         );

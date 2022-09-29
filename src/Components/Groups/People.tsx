@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const People = (props: IPeopleProps) => {
   const { getPeople, currentRole } = props;
   const {name, id} = props.person
+  
   const removePerson = () => {
     GroupServices.removePerson(props.groupId, id)
       .then(() => {
