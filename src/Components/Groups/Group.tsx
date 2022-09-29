@@ -21,6 +21,7 @@ import NameDisabled from "./NameDisabled";
 import PeopleOpen from "./PeopleOpen";
 import GroupsOpen from "./GroupsOpen";
 import { useTranslation } from "react-i18next";
+import { group } from "console";
 
 const Group: React.FC<IGroupProps> = ({
   id,

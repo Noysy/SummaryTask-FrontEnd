@@ -1,6 +1,7 @@
 import { CardActions, Fab, TextField } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useState } from "react";
 
 interface INameProps {
   setIsNameEditable: Function;
@@ -11,6 +12,7 @@ interface INameProps {
 
 const NameEnabled = (props: INameProps) => {
   const { setIsNameEditable, groupName, updateName, setGroupName } = props;
+  const [currentGroupName, setCurrentGroupName] = useState(groupName);
 
   return (
     <>
@@ -30,6 +32,7 @@ const NameEnabled = (props: INameProps) => {
           onClick={() => {
             setIsNameEditable((prevValue: boolean) => !prevValue);
             updateName();
+            setCurrentGroupName(groupName);
           }}
         >
           <DoneIcon />
@@ -38,7 +41,11 @@ const NameEnabled = (props: INameProps) => {
           color="default"
           aria-label="delete"
           size="medium"
-          onClick={() => setIsNameEditable((prevValue: boolean) => !prevValue)}
+          onClick={() => {
+            setGroupName(currentGroupName);
+            setIsNameEditable((prevValue: boolean) => !prevValue);
+          }}
+          //   onClick={() => setIsNameEditable((prevValue: boolean) => !prevValue)}
         >
           <ClearIcon />
         </Fab>

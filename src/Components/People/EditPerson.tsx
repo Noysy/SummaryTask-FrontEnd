@@ -15,7 +15,6 @@ import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
 import {
-  Person,
   personEnabledDetails,
   PersonWithId,
 } from "../../Interfaces/Person";
