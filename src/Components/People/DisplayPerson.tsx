@@ -45,7 +45,7 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     await PeopleServices.uploadFile(id, formData)
       .then((res) => {
         setPersonFiles((files) => {
-          return [...files, res.data];
+          return [...files, res];
         });
         return toast.success("The file has been uploaded!");
       })

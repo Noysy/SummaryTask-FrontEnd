@@ -17,7 +17,7 @@ const CreatePerson = (props: IProps) => {
     const { name, favoriteAnimal, favoriteColor, favoriteFood, role } = person;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
-      
+
     PeopleServices.createPerson({
       person: person,
       group: group,
@@ -26,11 +26,11 @@ const CreatePerson = (props: IProps) => {
         setPeopleList((peopleList: PersonWithId[]) => [
           ...peopleList,
           {
-            id: res.data.id,
-            name: res.data.name,
-            favoriteAnimal: res.data.favoriteAnimal,
-            favoriteFood: res.data.favoriteFood,
-            favoriteColor: res.data.favoriteColor,
+            id: res.id,
+            name: res.name,
+            favoriteAnimal: res.favoriteAnimal,
+            favoriteFood: res.favoriteFood,
+            favoriteColor: res.favoriteColor,
             role: role,
           },
         ]);

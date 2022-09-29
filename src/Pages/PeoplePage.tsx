@@ -13,8 +13,8 @@ const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
-        if (!res.data) return;
-        setPeopleList(res.data);
+        if (!res) return;
+        setPeopleList(res);
       })
       .catch((err) => {
         return toast.error(err.response.data);

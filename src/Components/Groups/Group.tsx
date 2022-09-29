@@ -80,7 +80,7 @@ const Group: React.FC<IGroupProps> = ({
       .then((res) => {
         const peopleId = people.map(({ id }) => id);
         setAllPeople(
-          res.data
+          res
             .filter((person: PersonWithId) => !peopleId.includes(person.id))
             .map((person: IAutocomplete, index: number) => {
               return (
@@ -110,7 +110,7 @@ const Group: React.FC<IGroupProps> = ({
           return group.id;
         });
         setAllGroups(
-          res.data
+          res
             .filter(
               (group: IGroup) => !groupId.includes(group.id) && id !== group.id
             )
@@ -154,7 +154,7 @@ const Group: React.FC<IGroupProps> = ({
   const getPeople = () => {
     GroupServices.getGroupMembers(id)
       .then((res) => {
-        setPeople(res.data.people);
+        setPeople(res.people);
       })
       .catch((err) => {
         return toast.error(err.response.data);
@@ -164,7 +164,7 @@ const Group: React.FC<IGroupProps> = ({
   const getGroups = () => {
     GroupServices.getGroupsChildren(id)
       .then((res) => {
-        setGroups(res.data.children);
+        setGroups(res.children);
       })
       .catch((err) => {
         return toast.error(err.response.data);

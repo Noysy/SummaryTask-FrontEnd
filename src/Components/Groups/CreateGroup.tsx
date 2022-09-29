@@ -23,7 +23,7 @@ const CreateGroup = (props: IProps) => {
       .then((res) => {
         setGroupList((groupList: IGroup[]) => [
           ...groupList,
-          { id: res.data.id, name: res.data.name },
+          { id: res.id, name: res.name },
         ]);
 
         return toast.success("A new group :o");

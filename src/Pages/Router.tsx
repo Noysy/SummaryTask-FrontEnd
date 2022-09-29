@@ -19,9 +19,9 @@ const Main = () => {
   useEffect(() => {
     PeopleServices.getAllPeopleList()
       .then((res) => {
-        setAllPeople(res.data);
+        setAllPeople(res);
         setPeople(
-          res.data.map((person: PersonWithId) => {
+          res.map((person: PersonWithId) => {
             return (
               <MenuItem key={person.id} value={person.id}>
                 {person.name}
@@ -38,7 +38,7 @@ const Main = () => {
   const handleChange = (event: SelectChangeEvent) => {
     PeopleServices.selectUser(event.target.value).then((res) => {
       const cookies = new Cookies();
-      cookies.set("jwt", `Barrier ${res.data}`, { path: "/" });
+      cookies.set("jwt", `Barrier ${res}`, { path: "/" });
       setCurrentCookie(cookies.get("jwt"));
     });
     if (allPeople) {

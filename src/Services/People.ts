@@ -16,31 +16,33 @@ axios.interceptors.request.use((config) => {
 
 class PeopleServices {
   static getAllPeople = async () => {
-    return await axios.get(`${url}/`);
+    return (await axios.get(`${url}/`)).data;
   };
 
   static getAllPeopleList = async () => {
-    return await axios.get(`${url}/list`);
+    return (await axios.get(`${url}/list`)).data;
   };
 
   static createPerson = async (personDetails: ICreatePerson) => {
-    return await axios.post(`${url}/`, personDetails);
+    return (await axios.post(`${url}/`, personDetails)).data;
   };
 
-  static updatePerson = async (personDetails: IUpdate) => {    
-    return await axios.put(`${url}/${personDetails.id}`, personDetails.newPerson);
+  static updatePerson = async (personDetails: IUpdate) => {
+    return (
+      await axios.put(`${url}/${personDetails.id}`, personDetails.newPerson)
+    ).data;
   };
 
   static deletePerson = async (personId: string) => {
-    return await axios.delete(`${url}/${personId}`);
+    return (await axios.delete(`${url}/${personId}`)).data;
   };
 
   static uploadFile = async (personId: string, file: FormData) => {
-    return await axios.put(`${url}/${personId}/upload-file`, file);
+    return (await axios.put(`${url}/${personId}/upload-file`, file)).data;
   };
 
   static selectUser = async (personId: string) => {
-    return await axios.get(`${url}/${personId}/select`);
+    return (await axios.get(`${url}/${personId}/select`)).data;
   };
 }
 

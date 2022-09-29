@@ -35,7 +35,7 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
     GroupServices.getAllGroups()
       .then((res) => {
         setAllGroups(
-          res.data.map((group: IGroup) => {
+          res.map((group: IGroup) => {
             return (
               <MenuItem key={group.id} value={group.id}>
                 {group.name}

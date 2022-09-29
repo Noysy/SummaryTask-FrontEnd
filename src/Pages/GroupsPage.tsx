@@ -14,9 +14,9 @@ const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
   useEffect(() => {
     GroupServices.getAllGroups()
       .then((res) => {
-        if (!res.data) return;
+        if (!res) return;
         setGroupList(
-          res.data.map((group: IGroup) => {
+          res.map((group: IGroup) => {
             return { id: group.id, name: group.name };
           })
         );
