@@ -18,7 +18,7 @@ import PeopleServices from "../../Services/People";
 import Groups from "./Groups";
 import NameEnabled from "./NameEnabled";
 import NameDisabled from "./NameDisabled";
-import PeopleOpen from "./PeopleOpen";
+import PeopleDropdown from "./PeopleDropdown";
 import GroupsDropdown from "./GroupsDropdown";
 import { useTranslation } from "react-i18next";
 import { group } from "console";
@@ -235,7 +235,7 @@ const Group: React.FC<IGroupProps> = ({
           <div id="groups-and-people">
             <div className="dropdown">
               {isPeopleOpen ? (
-                <PeopleOpen
+                <PeopleDropdown
                   setIsPeopleOpen={setIsPeopleOpen}
                   peopleAsElements={peopleAsElements}
                   allPeople={allPeople}

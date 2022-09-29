@@ -9,7 +9,7 @@ interface IPeopleOpenProps {
   currentRole: string;
 }
 
-const PeopleOpen = (props: IPeopleOpenProps) => {
+const PeopleDropdown = (props: IPeopleOpenProps) => {
   const { setIsPeopleOpen, peopleAsElements, allPeople, currentRole } = props;
   const [open, setOpen] = useState(false);
 
@@ -63,4 +63,4 @@ const PeopleOpen = (props: IPeopleOpenProps) => {
   );
 };
 
-export default PeopleOpen;
+export default PeopleDropdown;
