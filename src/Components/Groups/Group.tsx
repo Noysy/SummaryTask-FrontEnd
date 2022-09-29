@@ -19,7 +19,7 @@ import Groups from "./Groups";
 import NameEnabled from "./NameEnabled";
 import NameDisabled from "./NameDisabled";
 import PeopleOpen from "./PeopleOpen";
-import GroupsOpen from "./GroupsOpen";
+import GroupsDropdown from "./GroupsDropdown";
 import { useTranslation } from "react-i18next";
 import { group } from "console";
 
@@ -79,9 +79,7 @@ const Group: React.FC<IGroupProps> = ({
   useEffect(() => {
     PeopleServices.getAllPeople()
       .then((res) => {
-        const peopleId = people.map((person: PersonWithId) => {
-          return person.id;
-        });
+        const peopleId = people.map(({ id }) => id);
         setAllPeople(
           res.data
             .filter((person: PersonWithId) => !peopleId.includes(person.id))
@@ -115,8 +113,7 @@ const Group: React.FC<IGroupProps> = ({
         setAllGroups(
           res.data
             .filter(
-              (group: IGroup) =>
-                !groupId.includes(group.id) && !(id === group.id)
+              (group: IGroup) => !groupId.includes(group.id) && id !== group.id
             )
             .map((group: IAutocomplete, index: number) => {
               return (
@@ -260,7 +257,7 @@ const Group: React.FC<IGroupProps> = ({
             </div>
             <div className="dropdown">
               {isGroupsOpen ? (
-                <GroupsOpen
+                <GroupsDropdown
                   setIsGroupsOpen={setIsGroupsOpen}
                   groupsAsElements={groupsAsElements}
                   allGroups={allGroups}
