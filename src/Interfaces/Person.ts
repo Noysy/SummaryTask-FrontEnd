@@ -1,3 +1,10 @@
+export interface decodedJwt {
+  iat: number;
+  id: string;
+  name: string;
+  role: string;
+}
+
 export interface Person {
   name: string;
   favoriteColor: string;
@@ -18,7 +25,7 @@ export interface ICreatePerson {
 }
 
 export interface IPersonFunc {
-  person: PersonWithId
+  person: PersonWithId;
   setPeopleList: Function;
   currentRole: string;
 }
@@ -29,7 +36,7 @@ export interface IAutocomplete {
 }
 
 export interface IPersonDetails {
-  person: PersonWithId
+  person: PersonWithId;
   setAreSlotsEnabled: Function;
   areSlotsEnabled: boolean;
 }

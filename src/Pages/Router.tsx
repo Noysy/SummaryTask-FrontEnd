@@ -7,14 +7,20 @@ import "react-toastify/dist/ReactToastify.css";
 import GroupPage from "./GroupsPage";
 import PeopleServices from "../Services/People";
 import { useEffect, useState } from "react";
-import { PersonWithId } from "../Interfaces/Person";
+import { PersonWithId, decodedJwt } from "../Interfaces/Person";
 import Cookies from "universal-cookie";
+import jwt_decode from "jwt-decode";
 
 const Main = () => {
+  const cookies = new Cookies();
   const [people, setPeople] = useState();
   const [allPeople, setAllPeople] = useState<PersonWithId[]>();
-  const [currentCookie, setCurrentCookie] = useState<string>("");
-  const [currentRole, setCurrentRole] = useState<string>("");
+  const [currentCookie, setCurrentCookie] = useState<string>(
+    cookies.get("jwt")
+  );
+  const [currentRole, setCurrentRole] = useState<string>(
+    (jwt_decode(currentCookie) as decodedJwt).role
+  );
 
   useEffect(() => {
     PeopleServices.getAllPeopleList()
@@ -37,8 +43,7 @@ const Main = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     PeopleServices.selectUser(event.target.value).then((res) => {
-      const cookies = new Cookies();
-      cookies.set("jwt", `Barrier ${res}`, { path: "/" });
+      cookies.set("jwt", res, { path: "/" });
       setCurrentCookie(cookies.get("jwt"));
     });
     if (allPeople) {
