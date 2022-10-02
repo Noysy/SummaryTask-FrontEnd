@@ -18,6 +18,9 @@ const Main = () => {
   const [currentCookie, setCurrentCookie] = useState<string>(
     cookies.get("jwt")
   );
+  const [selectedUser, setSelectedUser] = useState<string>(
+    (jwt_decode(currentCookie) as decodedJwt).id
+  );
   const [currentRole, setCurrentRole] = useState<string>(
     (jwt_decode(currentCookie) as decodedJwt).role
   );
@@ -42,6 +45,7 @@ const Main = () => {
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
+    setSelectedUser(event.target.value);
     PeopleServices.selectUser(event.target.value).then((res) => {
       cookies.set("jwt", res, { path: "/" });
       setCurrentCookie(cookies.get("jwt"));
@@ -70,7 +74,11 @@ const Main = () => {
               Groups
             </Button>
           </Link>
-          <Select sx={{ width: 400 }} onChange={handleChange} defaultValue={""}>
+          <Select
+            sx={{ width: 400 }}
+            value={selectedUser}
+            onChange={handleChange}
+          >
             {people}
           </Select>
           <hr />
