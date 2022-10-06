@@ -73,3 +73,9 @@ export interface IPage {
   cookie: string;
   currentRole: string;
 }
+
+export interface editableField {
+  fieldName: string,
+    field: string,
+    fieldType: "title" | "normal",
+}

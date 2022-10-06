@@ -15,7 +15,7 @@ class GroupServices {
   };
 
   static removePerson = async (groupId: string, personId: string) => {
-    return (await axios.delete(`${groupApiRoute}/${groupId}/person/${personId}`)).data;
+    return (await axios.patch(`${groupApiRoute}/${groupId}/person/${personId}`)).data;
   };
 
   static addPerson = async (groupId: string, personId: string) => {
@@ -23,7 +23,7 @@ class GroupServices {
   };
 
   static removeGroup = async (groupId: string) => {
-    return (await axios.delete(`${groupApiRoute}/${groupId}/parent`)).data;
+    return (await axios.patch(`${groupApiRoute}/${groupId}/parent`)).data;
   };
 
   static addGroup = async (groupId: string, parentId: string) => {

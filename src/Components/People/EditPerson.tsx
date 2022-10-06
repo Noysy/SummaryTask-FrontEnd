@@ -14,7 +14,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
-import { personEnabledDetails, PersonWithId } from "../../Interfaces/Person";
+import {
+  editableField,
+  personEnabledDetails,
+  PersonWithId,
+} from "../../Interfaces/Person";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
 import { IGroup } from "../../Interfaces/Group";
@@ -49,18 +53,19 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
       });
   }, []);
 
-  const editDetailTextBox = (
-    fieldName: string,
-    field: string,
-    mb: number = -1,
-    mt: number = 1,
-    ml: number = 2,
-    fontSize: number = 14
-  ) => {
+  const EditDetailTextBox = (props: editableField) => {
+    const { fieldName, field, fieldType } = props;
     return (
       <TextField
-        InputProps={{ disableUnderline: true, style: { fontSize } }}
-        sx={{ mb, ml, mt }}
+        InputProps={{
+          disableUnderline: true,
+          style: { fontSize: fieldType === "title" ? 16 : 14 },
+        }}
+        sx={
+          fieldType === "title"
+            ? { mb: 1.1, mt: -0.5 }
+            : { mb: 0.3, mt: -0.5, ml: 1 }
+        }
         placeholder={fieldName}
         variant="standard"
         value={newPerson[field]}
@@ -76,11 +81,31 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
 
   return (
     <CardContent>
-      {editDetailTextBox("Name:", "name", 0.4, -0.5, 0, 16)}
-      {editDetailTextBox("Favorite color:", "favoriteColor")}
-      {editDetailTextBox("Favorite food:", "favoriteFood")}
-      {editDetailTextBox("Favorite animal:", "favoriteAnimal")}
-      {editDetailTextBox("Role:", "role")}
+      <EditDetailTextBox
+        fieldName={"Name:"}
+        field={"name"}
+        fieldType={"title"}
+      />
+      <EditDetailTextBox
+        fieldName={"Favorite color:"}
+        field={"favoriteColor"}
+        fieldType={"normal"}
+      />
+      <EditDetailTextBox
+        fieldName={"Favorite food:"}
+        field={"favoriteFood"}
+        fieldType={"normal"}
+      />
+      <EditDetailTextBox
+        fieldName={"Favorite animal:"}
+        field={"favoriteAnimal"}
+        fieldType={"normal"}
+      />
+      <EditDetailTextBox
+        fieldName={"Role:"}
+        field={"role"}
+        fieldType={"normal"}
+      />
 
       {id ? (
         <Typography

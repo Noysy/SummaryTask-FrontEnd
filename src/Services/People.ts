@@ -46,7 +46,7 @@ class PeopleServices {
   };
 
   static selectUser = async (personId: string) => {
-    return (await axios.get(`${peopleApiRoute}/${personId}/select`)).data;
+    return (await axios.get(`${peopleApiRoute}/${personId}/login`)).data;
   };
 }
 
