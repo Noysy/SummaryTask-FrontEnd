@@ -10,10 +10,13 @@ interface INameProps {
   currentRole: string;
 }
 
-const NameDisabled = (props: INameProps) => {
-  const { setIsNameEditable, groupName, deleteGroup, groupId, currentRole } =
-    props;
-
+const NameDisabled = ({
+  setIsNameEditable,
+  groupName,
+  deleteGroup,
+  groupId,
+  currentRole,
+}: INameProps) => {
   return (
     <>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">

@@ -15,14 +15,12 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { StyledLink, StyledTypography } from "../../Styles/styledComponents";
 
-const PersonDisabledDetails = (props: personDisabledDetails) => {
-  const {
-    setAreSlotsEnabled,
-    areSlotsEnabled,
-    deletePerson,
-    person,
-    currentRole,
-  } = props;
+const PersonDisabledDetails = ({
+  setAreSlotsEnabled,
+  deletePerson,
+  person,
+  currentRole,
+}: personDisabledDetails) => {
   const [personFiles, setPersonFiles] = useState<FileDetails[]>([]);
   const [isFilesOpen, setIsFilesOpen] = useState<boolean>(false);
   const { id, files, name, favoriteAnimal, favoriteColor, favoriteFood, role } =
@@ -43,9 +41,9 @@ const PersonDisabledDetails = (props: personDisabledDetails) => {
     const formData = new FormData();
     formData.append("file", file);
     await PeopleServices.uploadFile(id, formData)
-      .then((res) => {
+      .then((file: FileDetails) => {
         setPersonFiles((files) => {
-          return [...files, res];
+          return [...files, file];
         });
         return toast.success("The file has been uploaded!");
       })

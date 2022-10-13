@@ -4,12 +4,11 @@ import { IPeopleProps } from "../../Interfaces/Group";
 import GroupServices from "../../Services/Groups";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const People = (props: IPeopleProps) => {
-  const { getPeople, currentRole } = props;
-  const {name, id} = props.person
-  
+const People: React.FC<IPeopleProps> = ({ getPeople, currentRole, person, groupId }) => {
+  const { name, id } = person;
+
   const removePerson = () => {
-    GroupServices.removePerson(props.groupId, id)
+    GroupServices.removePerson(groupId, id)
       .then(() => {
         getPeople();
         toast.success(`${name} will be missed...`);

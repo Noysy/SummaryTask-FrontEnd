@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AddButton from "../Components/AddButton";
 import GroupServices from "../Services/Groups";
-import { IGroup } from "../Interfaces/Group";
+import { groupFromDb, IGroup } from "../Interfaces/Group";
 import Group from "../Components/Groups/Group";
 import CreateGroup from "../Components/Groups/CreateGroup";
 import { IPage } from "../Interfaces/Person";
@@ -13,10 +13,10 @@ const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
 
   useEffect(() => {
     GroupServices.getAllGroups()
-      .then((res) => {
-        if (!res) return;
+      .then((groupList: groupFromDb[]) => {
+        if (!groupList) return;
         setGroupList(
-          res.map((group: IGroup) => {
+          groupList.map((group: IGroup) => {
             return { id: group.id, name: group.name };
           })
         );

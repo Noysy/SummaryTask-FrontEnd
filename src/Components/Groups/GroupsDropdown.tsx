@@ -9,8 +9,12 @@ interface IGroupsOpenProps {
   currentRole: string;
 }
 
-const GroupsDropdown = (props: IGroupsOpenProps) => {
-  const { setIsGroupsOpen, groupsAsElements, allGroups, currentRole } = props;
+const GroupsDropdown = ({
+  setIsGroupsOpen,
+  groupsAsElements,
+  allGroups,
+  currentRole,
+}: IGroupsOpenProps) => {
   const [groupOpen, setGroupOpen] = useState(false);
 
   const handleGroupClose = () => {
@@ -25,9 +29,7 @@ const GroupsDropdown = (props: IGroupsOpenProps) => {
       <Button
         variant="contained"
         color="inherit"
-        onClick={() =>
-          setIsGroupsOpen((prevValue: boolean) => !prevValue)
-        }
+        onClick={() => setIsGroupsOpen((prevValue: boolean) => !prevValue)}
         endIcon={<KeyboardArrowDownIcon />}
       >
         Groups

@@ -10,8 +10,12 @@ interface INameProps {
   setGroupName: Function;
 }
 
-const NameEnabled = (props: INameProps) => {
-  const { setIsNameEditable, groupName, updateName, setGroupName } = props;
+const NameEnabled = ({
+  setIsNameEditable,
+  groupName,
+  updateName,
+  setGroupName,
+}: INameProps) => {
   const [currentGroupName, setCurrentGroupName] = useState(groupName);
 
   return (

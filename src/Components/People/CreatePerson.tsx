@@ -10,9 +10,7 @@ interface IProps {
   setPeopleList: Function;
 }
 
-const CreatePerson = (props: IProps) => {
-  const { isCreating, setIsCreating, setPeopleList } = props;
-
+const CreatePerson: React.FC<IProps> = ({ isCreating, setIsCreating, setPeopleList }) => {
   const createPerson = (person: Person, group: string) => {
     const { name, favoriteAnimal, favoriteColor, favoriteFood, role } = person;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
@@ -22,15 +20,15 @@ const CreatePerson = (props: IProps) => {
       person: person,
       group: group,
     })
-      .then((res) => {
+      .then((newPerson: PersonWithId) => {
         setPeopleList((peopleList: PersonWithId[]) => [
           ...peopleList,
           {
-            id: res.id,
-            name: res.name,
-            favoriteAnimal: res.favoriteAnimal,
-            favoriteFood: res.favoriteFood,
-            favoriteColor: res.favoriteColor,
+            id: newPerson.id,
+            name: newPerson.name,
+            favoriteAnimal: newPerson.favoriteAnimal,
+            favoriteFood: newPerson.favoriteFood,
+            favoriteColor: newPerson.favoriteColor,
             role: role,
           },
         ]);

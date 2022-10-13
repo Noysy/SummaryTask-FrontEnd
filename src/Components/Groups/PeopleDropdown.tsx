@@ -10,8 +10,12 @@ interface IPeopleOpenProps {
   currentRole: string;
 }
 
-const PeopleDropdown = (props: IPeopleOpenProps) => {
-  const { setIsPeopleOpen, peopleAsElements, allPeople, currentRole } = props;
+const PeopleDropdown = ({
+  setIsPeopleOpen,
+  peopleAsElements,
+  allPeople,
+  currentRole,
+}: IPeopleOpenProps) => {
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {

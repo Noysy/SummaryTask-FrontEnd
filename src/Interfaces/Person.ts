@@ -75,7 +75,7 @@ export interface IPage {
 }
 
 export interface editableField {
-  fieldName: string,
-    field: string,
-    fieldType: "title" | "normal",
+  fieldName: string;
+  field: string;
+  fieldType: "title" | "normal";
 }

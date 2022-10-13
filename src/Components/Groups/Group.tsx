@@ -8,7 +8,7 @@ import {
   Zoom,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IGroup, IGroupProps } from "../../Interfaces/Group";
+import { groupFromDb, groupWithPopulatedChildren, groupWithPopulatedPeople, IGroup, IGroupProps } from "../../Interfaces/Group";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import People from "./People";
 import GroupServices from "../../Services/Groups";
@@ -77,10 +77,10 @@ const Group: React.FC<IGroupProps> = ({
 
   useEffect(() => {
     PeopleServices.getAllPeople()
-      .then((res) => {
+      .then((peopleList: PersonWithId[]) => {        
         const peopleId = people.map(({ id }) => id);
         setAllPeople(
-          res
+          peopleList
             .filter((person: PersonWithId) => !peopleId.includes(person.id))
             .map((person: IAutocomplete, index: number) => {
               return (
@@ -105,12 +105,12 @@ const Group: React.FC<IGroupProps> = ({
 
   useEffect(() => {
     GroupServices.getAllGroups()
-      .then((res) => {
+      .then((groupList: groupFromDb[]) => {
         const groupId = groups.map((group: IGroup) => {
           return group.id;
         });
         setAllGroups(
-          res
+          groupList
             .filter(
               (group: IGroup) => !groupId.includes(group.id) && id !== group.id
             )
@@ -153,8 +153,8 @@ const Group: React.FC<IGroupProps> = ({
 
   const getPeople = () => {
     GroupServices.getGroupMembers(id)
-      .then((res) => {
-        setPeople(res.people);
+      .then((populatedGroup: groupWithPopulatedPeople) => {        
+        setPeople(populatedGroup.people);
       })
       .catch((err) => {
         return toast.error(err.response.data);
@@ -163,8 +163,8 @@ const Group: React.FC<IGroupProps> = ({
 
   const getGroups = () => {
     GroupServices.getGroupsChildren(id)
-      .then((res) => {
-        setGroups(res.children);
+      .then((populatedGroup: groupWithPopulatedChildren) => {        
+        setGroups(populatedGroup.children);
       })
       .catch((err) => {
         return toast.error(err.response.data);

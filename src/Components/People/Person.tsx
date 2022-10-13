@@ -6,7 +6,7 @@ import { IPersonFunc, PersonWithId } from "../../Interfaces/Person";
 import { toast } from "react-toastify";
 import PeopleServices from "../../Services/People";
 
-const Person = (props: IPersonFunc) => {
+const Person: React.FC<IPersonFunc> = (props) => {
   const { setPeopleList, person, currentRole } = props;
   const [areSlotsEnabled, setAreSlotsEnabled] = useState(false);
 

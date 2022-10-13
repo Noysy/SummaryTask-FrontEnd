@@ -6,9 +6,7 @@ interface IProps {
   isCreating: boolean;
 }
 
-const AddButton = (props: IProps) => {
-  const { isCreating, setIsCreating } = props;
-
+const AddButton: React.FC<IProps> = ({ isCreating, setIsCreating }) => {
   return (
     <Zoom in={!isCreating}>
       <Fab

@@ -21,14 +21,17 @@ import {
 } from "../../Interfaces/Person";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
-import { IGroup } from "../../Interfaces/Group";
+import { groupFromDb } from "../../Interfaces/Group";
 
-const PersonEnabledDetails = (props: personEnabledDetails) => {
-  const { setAreSlotsEnabled, updatePerson, createPerson, person } = props;
-
+const PersonEnabledDetails = ({
+  setAreSlotsEnabled,
+  updatePerson,
+  createPerson,
+  person,
+}: personEnabledDetails) => {
   const { id } = person;
   const [newPerson, setNewPerson] = useState(person);
-  const [allGroups, setAllGroups] = useState();
+  const [allGroups, setAllGroups] = useState<JSX.Element[]>();
   const [group, setGroup] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -37,9 +40,9 @@ const PersonEnabledDetails = (props: personEnabledDetails) => {
 
   useEffect(() => {
     GroupServices.getAllGroups()
-      .then((res) => {
+      .then((groups: groupFromDb[]) => {
         setAllGroups(
-          res.map((group: IGroup) => {
+          groups.map((group: groupFromDb) => {
             return (
               <MenuItem key={group.id} value={group.id}>
                 {group.name}

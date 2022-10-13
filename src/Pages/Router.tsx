@@ -13,8 +13,8 @@ import jwt_decode from "jwt-decode";
 
 const Main = () => {
   const cookies = new Cookies();
-  const [people, setPeople] = useState();
-  const [allPeople, setAllPeople] = useState<PersonWithId[]>();
+  const [people, setPeople] = useState<JSX.Element[]>([]);
+  const [allPeople, setAllPeople] = useState<PersonWithId[]>([]);
   const [currentCookie, setCurrentCookie] = useState<string>(
     cookies.get("jwt")
   );
@@ -27,10 +27,10 @@ const Main = () => {
 
   useEffect(() => {
     PeopleServices.getAllPeopleList()
-      .then((res) => {
-        setAllPeople(res);
+      .then((peopleList: PersonWithId[]) => {
+        setAllPeople(peopleList);
         setPeople(
-          res.map((person: PersonWithId) => {
+          peopleList.map((person: PersonWithId) => {
             return (
               <MenuItem key={person.id} value={person.id}>
                 {person.name}
@@ -46,8 +46,8 @@ const Main = () => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedUser(event.target.value);
-    PeopleServices.selectUser(event.target.value).then((res) => {
-      cookies.set("jwt", res, { path: "/" });
+    PeopleServices.selectUser(event.target.value).then((jwt: string) => {
+      cookies.set("jwt", jwt, { path: "/" });
       setCurrentCookie(cookies.get("jwt"));
     });
     if (allPeople) {

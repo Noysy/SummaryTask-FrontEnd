@@ -34,3 +34,24 @@ export interface IUpdateNameProps extends IGroup {
   isNameEditable: boolean;
   setIsNameEditable: Function;
 }
+
+export interface groupFromDb {
+  id: string;
+  name: string;
+  people: string[];
+  groups?: string[];
+  parentGroup?: string;
+}
+export interface groupWithPopulatedPeople {
+  id: string;
+  name: string;
+  people: PersonWithId[];
+  parentGroup?: string;
+}
+export interface groupWithPopulatedChildren {
+  id: string;
+  name: string;
+  people: string[];
+  children: groupFromDb[];
+  parentGroup?: string;
+}

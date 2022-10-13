@@ -4,7 +4,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import GroupServices from "../../Services/Groups";
 import { toast } from "react-toastify";
-import { IGroup } from "../../Interfaces/Group";
+import { groupFromDb, IGroup } from "../../Interfaces/Group";
 
 interface IProps {
   setIsCreating: Function;
@@ -12,18 +12,17 @@ interface IProps {
   setGroupList: Function;
 }
 
-const CreateGroup = (props: IProps) => {
-  const { isCreating, setIsCreating, setGroupList } = props;
+const CreateGroup: React.FC<IProps> = ({ isCreating, setIsCreating, setGroupList }) => {
   const [groupName, setGroupName] = useState("");
 
-  const CreateGroup = () => {
+  const createGroup = () => {
     if (!groupName)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     GroupServices.createGroup(groupName)
-      .then((res) => {
+      .then((newGroup: groupFromDb) => {
         setGroupList((groupList: IGroup[]) => [
           ...groupList,
-          { id: res.id, name: res.name },
+          { id: newGroup.id, name: newGroup.name },
         ]);
 
         return toast.success("A new group :o");
@@ -51,7 +50,7 @@ const CreateGroup = (props: IProps) => {
             size="medium"
             onClick={() => {
               setIsCreating((prevValue: boolean) => !prevValue);
-              CreateGroup();
+              createGroup();
             }}
           >
             <DoneIcon />
