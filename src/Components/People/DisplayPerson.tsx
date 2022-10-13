@@ -30,9 +30,7 @@ const PersonDisabledDetails = ({
     if (files)
       setPersonFiles(
         files.map((file) => {
-          const nameArray = file.name.split("-");
-          const name = nameArray[1];
-          return { name: name, url: file.url };
+          return { name: file.name.split("-")[1], url: file.url };
         })
       );
   }, []);
@@ -50,61 +48,62 @@ const PersonDisabledDetails = ({
       .catch((err) => toast.error(err.response.data));
   };
 
+  const openFiles = () => {
+    <>
+      <Button
+        variant="contained"
+        color="inherit"
+        onClick={() => {
+          setIsFilesOpen((prevValue: boolean) => !prevValue);
+        }}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+        Files
+      </Button>
+      <div id="person-files">
+        {personFiles.map((file) => {
+          return (
+            <StyledLink key={file.name} id="file" href={file.url} fontFamily="">
+              {file.name}
+            </StyledLink>
+          );
+        })}
+      </div>
+    </>;
+  };
+
+  const closeFiles = () => {
+    <Button
+      variant="contained"
+      color="inherit"
+      onClick={() => {
+        setIsFilesOpen((prevValue: boolean) => !prevValue);
+      }}
+      endIcon={<KeyboardArrowUpIcon />}
+    >
+      Files
+    </Button>;
+  };
+
   return (
     <>
       <CardContent>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {name}
-        </Typography>
-        <StyledTypography variant="body2">
-          <span>Favorite color: {favoriteColor}</span>
-          <span>Favorite food: {favoriteFood}</span>
-          <span>Favorite animal: {favoriteAnimal}</span>
-          <span>Role: {role}</span>
-        </StyledTypography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {id}
-        </Typography>
+        <>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {name}
+          </Typography>
+          <StyledTypography variant="body2">
+            <span>Favorite color: {favoriteColor}</span>
+            <span>Favorite food: {favoriteFood}</span>
+            <span>Favorite animal: {favoriteAnimal}</span>
+            <span>Role: {role}</span>
+          </StyledTypography>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {id}
+          </Typography>
 
-        {isFilesOpen ? (
-          <>
-            <Button
-              variant="contained"
-              color="inherit"
-              onClick={() => {
-                setIsFilesOpen((prevValue: boolean) => !prevValue);
-              }}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              Files
-            </Button>
-            <div id="person-files">
-              {personFiles.map((file) => {
-                return (
-                  <StyledLink
-                    key={file.name}
-                    id="file"
-                    href={file.url}
-                    fontFamily=""
-                  >
-                    {file.name}
-                  </StyledLink>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <Button
-            variant="contained"
-            color="inherit"
-            onClick={() => {
-              setIsFilesOpen((prevValue: boolean) => !prevValue);
-            }}
-            endIcon={<KeyboardArrowUpIcon />}
-          >
-            Files
-          </Button>
-        )}
+          {isFilesOpen ? { openFiles } : { closeFiles }}
+        </>
       </CardContent>
       <div id="person-buttons">
         {currentRole === "ADMIN" && (

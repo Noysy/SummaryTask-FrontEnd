@@ -30,7 +30,6 @@ const GroupsDropdown = ({
       {groupsAsElements}
       {currentRole === "ADMIN" && (
         <>
-          {" "}
           <Button
             onClick={() => {
               setGroupOpen((prevValue: boolean) => !prevValue);
@@ -62,7 +61,7 @@ const GroupsDropdown = ({
             >
               {allGroups}
             </List>
-          </Backdrop>{" "}
+          </Backdrop>
         </>
       )}
     </>
