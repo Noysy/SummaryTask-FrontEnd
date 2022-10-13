@@ -10,7 +10,11 @@ interface IProps {
   setPeopleList: Function;
 }
 
-const CreatePerson: React.FC<IProps> = ({ isCreating, setIsCreating, setPeopleList }) => {
+const CreatePerson: React.FC<IProps> = ({
+  isCreating,
+  setIsCreating,
+  setPeopleList,
+}) => {
   const createPerson = (person: Person, group: string) => {
     const { name, favoriteAnimal, favoriteColor, favoriteFood, role } = person;
     if (!name || !favoriteAnimal || !favoriteColor || !favoriteFood || !role)
@@ -20,21 +24,29 @@ const CreatePerson: React.FC<IProps> = ({ isCreating, setIsCreating, setPeopleLi
       person: person,
       group: group,
     })
-      .then((newPerson: PersonWithId) => {
-        setPeopleList((peopleList: PersonWithId[]) => [
-          ...peopleList,
-          {
-            id: newPerson.id,
-            name: newPerson.name,
-            favoriteAnimal: newPerson.favoriteAnimal,
-            favoriteFood: newPerson.favoriteFood,
-            favoriteColor: newPerson.favoriteColor,
-            role: role,
-          },
-        ]);
+      .then(
+        ({
+          id,
+          name,
+          favoriteAnimal,
+          favoriteColor,
+          favoriteFood,
+        }: PersonWithId) => {
+          setPeopleList((peopleList: PersonWithId[]) => [
+            ...peopleList,
+            {
+              id,
+              name,
+              favoriteAnimal,
+              favoriteFood,
+              favoriteColor,
+              role,
+            },
+          ]);
 
-        return toast.success("~(˘▾˘~) Created successfully");
-      })
+          return toast.success("~(˘▾˘~) Created successfully");
+        }
+      )
       .catch((err) => toast.error(err.response.data));
   };
 

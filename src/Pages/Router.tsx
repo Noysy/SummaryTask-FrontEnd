@@ -19,10 +19,10 @@ const Main = () => {
     cookies.get("jwt")
   );
   const [selectedUser, setSelectedUser] = useState<string>(
-    (jwt_decode(currentCookie) as decodedJwt).id
+    currentCookie ? (jwt_decode(currentCookie) as decodedJwt).id : ""
   );
   const [currentRole, setCurrentRole] = useState<string>(
-    (jwt_decode(currentCookie) as decodedJwt).role
+    currentCookie ? (jwt_decode(currentCookie) as decodedJwt).role : ""
   );
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const Main = () => {
       .then((peopleList: PersonWithId[]) => {
         setAllPeople(peopleList);
         setPeople(
-          peopleList.map((person: PersonWithId) => {
+          peopleList.map(({ id, name }: PersonWithId) => {
             return (
-              <MenuItem key={person.id} value={person.id}>
-                {person.name}
+              <MenuItem key={id} value={id}>
+                {name}
               </MenuItem>
             );
           })

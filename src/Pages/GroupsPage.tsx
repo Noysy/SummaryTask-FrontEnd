@@ -16,8 +16,8 @@ const GroupPage: React.FC<IPage> = ({ cookie, currentRole }) => {
       .then((groupList: groupFromDb[]) => {
         if (!groupList) return;
         setGroupList(
-          groupList.map((group: IGroup) => {
-            return { id: group.id, name: group.name };
+          groupList.map(({ id, name }: IGroup) => {
+            return { id, name };
           })
         );
       })

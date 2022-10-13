@@ -12,18 +12,19 @@ interface IProps {
   setGroupList: Function;
 }
 
-const CreateGroup: React.FC<IProps> = ({ isCreating, setIsCreating, setGroupList }) => {
+const CreateGroup: React.FC<IProps> = ({
+  isCreating,
+  setIsCreating,
+  setGroupList,
+}) => {
   const [groupName, setGroupName] = useState("");
 
   const createGroup = () => {
     if (!groupName)
       return toast.error("You cannot have an empty field..... ( ͡° ͜つ ͡°)╭∩╮");
     GroupServices.createGroup(groupName)
-      .then((newGroup: groupFromDb) => {
-        setGroupList((groupList: IGroup[]) => [
-          ...groupList,
-          { id: newGroup.id, name: newGroup.name },
-        ]);
+      .then(({ id, name }: groupFromDb) => {
+        setGroupList((groupList: IGroup[]) => [...groupList, { id, name }]);
 
         return toast.success("A new group :o");
       })

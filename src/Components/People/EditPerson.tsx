@@ -42,10 +42,10 @@ const PersonEnabledDetails = ({
     GroupServices.getAllGroups()
       .then((groups: groupFromDb[]) => {
         setAllGroups(
-          groups.map((group: groupFromDb) => {
+          groups.map(({id, name}: groupFromDb) => {
             return (
-              <MenuItem key={group.id} value={group.id}>
-                {group.name}
+              <MenuItem key={id} value={id}>
+                {name}
               </MenuItem>
             );
           })

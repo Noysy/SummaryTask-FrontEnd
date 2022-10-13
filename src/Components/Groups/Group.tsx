@@ -8,7 +8,13 @@ import {
   Zoom,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { groupFromDb, groupWithPopulatedChildren, groupWithPopulatedPeople, IGroup, IGroupProps } from "../../Interfaces/Group";
+import {
+  groupFromDb,
+  groupWithPopulatedChildren,
+  groupWithPopulatedPeople,
+  IGroup,
+  IGroupProps,
+} from "../../Interfaces/Group";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import People from "./People";
 import GroupServices from "../../Services/Groups";
@@ -41,6 +47,26 @@ const Group: React.FC<IGroupProps> = ({
   const [selectedGroupIndex, setSelectedGroupIndex] = useState<number>();
 
   const { t } = useTranslation();
+
+  const getGroups = () => {
+    GroupServices.getGroupsChildren(id)
+      .then(({ children }: groupWithPopulatedChildren) => {
+        setGroups(children);
+      })
+      .catch((err) => {
+        return toast.error(err.response.data);
+      });
+  };
+
+  const getPeople = () => {
+    GroupServices.getGroupMembers(id)
+      .then(({ people }: groupWithPopulatedPeople) => {
+        setPeople(people);
+      })
+      .catch((err) => {
+        return toast.error(err.response.data);
+      });
+  };
 
   useEffect(() => {
     getGroups();
@@ -77,7 +103,7 @@ const Group: React.FC<IGroupProps> = ({
 
   useEffect(() => {
     PeopleServices.getAllPeople()
-      .then((peopleList: PersonWithId[]) => {        
+      .then((peopleList: PersonWithId[]) => {
         const peopleId = people.map(({ id }) => id);
         setAllPeople(
           peopleList
@@ -146,26 +172,6 @@ const Group: React.FC<IGroupProps> = ({
   const addGroup = (groupId: string) => {
     GroupServices.addGroup(groupId, id)
       .then(() => getGroups())
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
-  };
-
-  const getPeople = () => {
-    GroupServices.getGroupMembers(id)
-      .then((populatedGroup: groupWithPopulatedPeople) => {        
-        setPeople(populatedGroup.people);
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
-  };
-
-  const getGroups = () => {
-    GroupServices.getGroupsChildren(id)
-      .then((populatedGroup: groupWithPopulatedChildren) => {        
-        setGroups(populatedGroup.children);
-      })
       .catch((err) => {
         return toast.error(err.response.data);
       });

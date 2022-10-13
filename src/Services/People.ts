@@ -9,7 +9,7 @@ axios.interceptors.request.use((config) => {
   if (!config.headers) config.headers = {};
 
   const cookies = new Cookies();
-  config.headers!["Authorization"] = cookies.get("jwt");
+  config.headers!["Authorization"] = `Bearer ${cookies.get("jwt")}`;
 
   return config;
 });

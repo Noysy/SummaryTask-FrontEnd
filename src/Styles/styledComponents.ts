@@ -1,9 +1,9 @@
 import { Link, List, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 
-export const StyledLink = styled(Link)(() => ({
+export const StyledLink = styled(Link)({
   margin: "1em",
-}));
+});
 
 export const StyledTypography = styled(Typography)({
   display: "flex",
