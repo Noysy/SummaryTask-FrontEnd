@@ -17,13 +17,6 @@ const GroupsDropdown = ({
 }: IGroupsOpenProps) => {
   const [groupOpen, setGroupOpen] = useState(false);
 
-  const handleGroupClose = () => {
-    setGroupOpen(false);
-  };
-  const handleGroupToggle = () => {
-    setGroupOpen((prevValue: boolean) => !prevValue);
-  };
-
   return (
     <>
       <Button
@@ -38,7 +31,13 @@ const GroupsDropdown = ({
       {currentRole === "ADMIN" && (
         <>
           {" "}
-          <Button onClick={handleGroupToggle}>Add groups</Button>
+          <Button
+            onClick={() => {
+              setGroupOpen((prevValue: boolean) => !prevValue);
+            }}
+          >
+            Add groups
+          </Button>
           <Backdrop
             id="backdrop"
             sx={{
@@ -46,7 +45,9 @@ const GroupsDropdown = ({
               zIndex: (theme) => theme.zIndex.drawer + 1,
             }}
             open={groupOpen}
-            onClick={handleGroupClose}
+            onClick={() => {
+              setGroupOpen(false);
+            }}
           >
             <Typography>Choose a group to add:</Typography>
             <List

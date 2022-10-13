@@ -16,36 +16,34 @@ const NameDisabled = ({
   deleteGroup,
   groupId,
   currentRole,
-}: INameProps) => {
-  return (
-    <>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        {groupName}
-      </Typography>
-      {currentRole === "ADMIN" && (
-        <CardActions>
-          <Fab
-            color="default"
-            aria-label="edit"
-            size="medium"
-            onClick={() => {
-              setIsNameEditable((prevValue: boolean) => !prevValue);
-            }}
-          >
-            <EditIcon />
-          </Fab>
-          <Fab
-            color="error"
-            aria-label="delete"
-            size="medium"
-            onClick={() => deleteGroup(groupId, groupName)}
-          >
-            <DeleteIcon />
-          </Fab>
-        </CardActions>
-      )}
-    </>
-  );
-};
+}: INameProps) => (
+  <>
+    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+      {groupName}
+    </Typography>
+    {currentRole === "ADMIN" && (
+      <CardActions>
+        <Fab
+          color="default"
+          aria-label="edit"
+          size="medium"
+          onClick={() => {
+            setIsNameEditable((prevValue: boolean) => !prevValue);
+          }}
+        >
+          <EditIcon />
+        </Fab>
+        <Fab
+          color="error"
+          aria-label="delete"
+          size="medium"
+          onClick={() => deleteGroup(groupId, groupName)}
+        >
+          <DeleteIcon />
+        </Fab>
+      </CardActions>
+    )}
+  </>
+);
 
 export default NameDisabled;

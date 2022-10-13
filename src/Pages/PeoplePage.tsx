@@ -16,21 +16,17 @@ const PeoplePage: React.FC<IPage> = ({ cookie, currentRole }) => {
         if (!personList) return;
         setPeopleList(personList);
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   }, [cookie]);
 
-  const fullList = peopleList.map((person) => {
-    return (
-      <Person
-        key={person.id}
-        person={person}
-        setPeopleList={setPeopleList}
-        currentRole={currentRole}
-      />
-    );
-  });
+  const fullList = peopleList.map((person) => (
+    <Person
+      key={person.id}
+      person={person}
+      setPeopleList={setPeopleList}
+      currentRole={currentRole}
+    />
+  ));
 
   return (
     <div id="main-people">

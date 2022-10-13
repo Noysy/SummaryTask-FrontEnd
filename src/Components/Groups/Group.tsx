@@ -27,6 +27,7 @@ import NameDisabled from "./NameDisabled";
 import PeopleDropdown from "./PeopleDropdown";
 import GroupsDropdown from "./GroupsDropdown";
 import { useTranslation } from "react-i18next";
+import { AxiosError } from "axios";
 
 const Group: React.FC<IGroupProps> = ({
   id,
@@ -53,9 +54,7 @@ const Group: React.FC<IGroupProps> = ({
       .then(({ children }: groupWithPopulatedChildren) => {
         setGroups(children);
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   };
 
   const getPeople = () => {
@@ -63,118 +62,108 @@ const Group: React.FC<IGroupProps> = ({
       .then(({ people }: groupWithPopulatedPeople) => {
         setPeople(people);
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   };
 
   useEffect(() => {
     getGroups();
   }, [groupList]);
 
-  const deleteGroup = () => {
-    GroupServices.deleteGroup(id)
-      .then(() => {
-        setGroupList((groupList: IGroup[]) =>
-          groupList.filter((group) => group.id !== id)
-        );
-        return toast.success(t("group.delete"));
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+  const deleteGroup = async () => {
+    try {
+      await GroupServices.deleteGroup(id);
+      setGroupList((groupList: IGroup[]) =>
+        groupList.filter((group) => group.id !== id)
+      );
+      return toast.success(t("group.delete"));
+    } catch (err) {
+      if (err instanceof AxiosError) return toast.error(err.response!.data);
+    }
   };
 
-  const updateName = () => {
-    GroupServices.updateName(id, groupName)
-      .then(() => {
-        setGroupList((groupList: IGroup[]) =>
-          groupList.map((group: IGroup) => {
-            if (group.id === id) return { id, name: groupName };
-            return { id: group.id, name: group.name };
-          })
-        );
-        return toast.success(t("group.update"));
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
+  const updateName = async () => {
+    try {
+      const updatedGroup = await GroupServices.updateName(id, groupName);
+      setGroupList((groupList: IGroup[]) => {
+        const copiedArray = [...groupList];
+
+        const groupIndex = copiedArray.findIndex((group) => group.id === id);
+        copiedArray[groupIndex] = {
+          id: updatedGroup.id,
+          name: updatedGroup.name,
+        };
+        return copiedArray;
       });
+      return toast.success(t("group.update"));
+    } catch (err) {
+      if (err instanceof AxiosError) return toast.error(err.response!.data);
+    }
   };
 
   useEffect(() => {
-    PeopleServices.getAllPeople()
-      .then((peopleList: PersonWithId[]) => {
-        const peopleId = people.map(({ id }) => id);
-        setAllPeople(
-          peopleList
-            .filter((person: PersonWithId) => !peopleId.includes(person.id))
-            .map((person: IAutocomplete, index: number) => {
-              return (
-                <ListItemButton
-                  key={person.id}
-                  selected={selectedIndex === index}
-                  onClick={(event) => {
-                    handleListItemClick(event, 1);
-                    addPerson(person.id);
-                  }}
-                >
-                  <ListItemText primary={person.name} />
-                </ListItemButton>
-              );
-            })
-        );
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+    const updatePeopleList = async () => {
+      const peopleList: PersonWithId[] = await PeopleServices.getAllPeople();
+      const peopleId = people.map(({ id }) => id);
+      setAllPeople(
+        peopleList
+          .filter((person: PersonWithId) => !peopleId.includes(person.id))
+          .map((person: IAutocomplete, index: number) => {
+            return (
+              <ListItemButton
+                key={person.id}
+                selected={selectedIndex === index}
+                onClick={(_event) => {
+                  setSelectedIndex(1);
+                  addPerson(person.id);
+                }}
+              >
+                <ListItemText primary={person.name} />
+              </ListItemButton>
+            );
+          })
+      );
+    };
+    updatePeopleList().catch((err) => toast.error(err.response.data));
   }, [people]);
 
   useEffect(() => {
-    GroupServices.getAllGroups()
-      .then((groupList: groupFromDb[]) => {
-        const groupId = groups.map((group: IGroup) => {
-          return group.id;
-        });
-        setAllGroups(
-          groupList
-            .filter(
-              (group: IGroup) => !groupId.includes(group.id) && id !== group.id
-            )
-            .map((group: IAutocomplete, index: number) => {
-              return (
-                <ListItemButton
-                  key={group.id}
-                  selected={selectedGroupIndex === index}
-                  onClick={(event) => {
-                    handleGroupListItemClick(event, 1);
-                    addGroup(group.id);
-                  }}
-                >
-                  <ListItemText primary={group.name} />
-                </ListItemButton>
-              );
-            })
-        );
-      })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+    const updateChildrenList = async () => {
+      const groupList: groupFromDb[] = await GroupServices.getAllGroups();
+
+      const groupId = groups.map((group: IGroup) => group.id);
+      setAllGroups(
+        groupList
+          .filter(
+            (group: IGroup) => id !== group.id && !groupId.includes(group.id)
+          )
+          .map((group: IAutocomplete, index: number) => (
+            <ListItemButton
+              key={group.id}
+              selected={selectedGroupIndex === index}
+              onClick={(_event) => {
+                setSelectedGroupIndex(1);
+                addGroup(group.id);
+              }}
+            >
+              <ListItemText primary={group.name} />
+            </ListItemButton>
+          ))
+      );
+    };
+
+    updateChildrenList().catch((err) => toast.error(err.response.data));
   }, [groups]);
 
   const addPerson = (personId: string) => {
     GroupServices.addPerson(id, personId)
-      .then(() => getPeople())
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .then(getPeople)
+      .catch((err) => toast.error(err.response.data));
   };
 
   const addGroup = (groupId: string) => {
     GroupServices.addGroup(groupId, id)
-      .then(() => getGroups())
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .then(getGroups)
+      .catch((err) => toast.error(err.response.data));
   };
 
   const peopleAsElements = people.map((person) => {
@@ -189,31 +178,15 @@ const Group: React.FC<IGroupProps> = ({
     );
   });
 
-  const groupsAsElements = groups.map((group) => {
-    return (
-      <Groups
-        id={group.id}
-        name={group.name}
-        getGroups={getGroups}
-        key={group.id}
-        currentRole={currentRole}
-      />
-    );
-  });
-
-  const handleListItemClick = (
-    _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    setSelectedIndex(index);
-  };
-
-  const handleGroupListItemClick = (
-    _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    setSelectedGroupIndex(index);
-  };
+  const groupsAsElements = groups.map((group) => (
+    <Groups
+      id={group.id}
+      name={group.name}
+      getGroups={getGroups}
+      key={group.id}
+      currentRole={currentRole}
+    />
+  ));
 
   return (
     <Zoom in>

@@ -28,9 +28,7 @@ const CreateGroup: React.FC<IProps> = ({
 
         return toast.success("A new group :o");
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   };
 
   return (

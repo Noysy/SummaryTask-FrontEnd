@@ -18,13 +18,6 @@ const PeopleDropdown = ({
 }: IPeopleOpenProps) => {
   const [open, setOpen] = useState(false);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen((prevValue: boolean) => !prevValue);
-  };
-
   return (
     <>
       <Button
@@ -38,7 +31,13 @@ const PeopleDropdown = ({
       {peopleAsElements}
       {currentRole === "ADMIN" && (
         <div id="add-to-group">
-          <Button onClick={handleToggle}>Add people</Button>
+          <Button
+            onClick={() => {
+              setOpen((prevValue: boolean) => !prevValue);
+            }}
+          >
+            Add people
+          </Button>
           <Backdrop
             id="backdrop"
             sx={{
@@ -46,7 +45,9 @@ const PeopleDropdown = ({
               zIndex: (theme) => theme.zIndex.drawer + 1,
             }}
             open={open}
-            onClick={handleClose}
+            onClick={() => {
+              setOpen(false);
+            }}
           >
             <Typography>Choose a person to add:</Typography>
             <StyledList aria-label="secondary mailbox folder">

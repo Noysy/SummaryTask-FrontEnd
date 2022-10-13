@@ -6,21 +6,19 @@ interface IProps {
   isCreating: boolean;
 }
 
-const AddButton: React.FC<IProps> = ({ isCreating, setIsCreating }) => {
-  return (
-    <Zoom in={!isCreating}>
-      <Fab
-        id="add-button"
-        color="primary"
-        aria-label="add"
-        onClick={() => {
-          setIsCreating((prevValue: boolean) => !prevValue);
-        }}
-      >
-        <AddIcon />
-      </Fab>
-    </Zoom>
-  );
-};
+const AddButton: React.FC<IProps> = ({ isCreating, setIsCreating }) => (
+  <Zoom in={!isCreating}>
+    <Fab
+      id="add-button"
+      color="primary"
+      aria-label="add"
+      onClick={() => {
+        setIsCreating((prevValue: boolean) => !prevValue);
+      }}
+    >
+      <AddIcon />
+    </Fab>
+  </Zoom>
+);
 
 export default AddButton;

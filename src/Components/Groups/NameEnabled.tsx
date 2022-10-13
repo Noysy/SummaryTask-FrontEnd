@@ -49,7 +49,6 @@ const NameEnabled = ({
             setGroupName(currentGroupName);
             setIsNameEditable((prevValue: boolean) => !prevValue);
           }}
-          //   onClick={() => setIsNameEditable((prevValue: boolean) => !prevValue)}
         >
           <ClearIcon />
         </Fab>

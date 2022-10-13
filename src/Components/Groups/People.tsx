@@ -29,7 +29,7 @@ const People: React.FC<IPeopleProps> = ({ getPeople, currentRole, person, groupI
               aria-label="delete"
               className="delete-icon"
               size="small"
-              onClick={() => removePerson()}
+              onClick={removePerson}
             >
               <DeleteIcon sx={{ fontSize: "1em" }} />
             </Fab>

@@ -30,18 +30,14 @@ const Main = () => {
       .then((peopleList: PersonWithId[]) => {
         setAllPeople(peopleList);
         setPeople(
-          peopleList.map(({ id, name }: PersonWithId) => {
-            return (
-              <MenuItem key={id} value={id}>
-                {name}
-              </MenuItem>
-            );
-          })
+          peopleList.map(({ id, name }: PersonWithId) => (
+            <MenuItem key={id} value={id}>
+              {name}
+            </MenuItem>
+          ))
         );
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -51,9 +47,9 @@ const Main = () => {
       setCurrentCookie(cookies.get("jwt"));
     });
     if (allPeople) {
-      const person = allPeople.find((person: PersonWithId) => {
-        return person.id === event.target.value;
-      });
+      const person = allPeople.find(
+        (person: PersonWithId) => person.id === event.target.value
+      );
       if (person) {
         setCurrentRole(person.role);
       }

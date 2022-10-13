@@ -34,26 +34,18 @@ const PersonEnabledDetails = ({
   const [allGroups, setAllGroups] = useState<JSX.Element[]>();
   const [group, setGroup] = useState("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setGroup(event.target.value);
-  };
-
   useEffect(() => {
     GroupServices.getAllGroups()
       .then((groups: groupFromDb[]) => {
         setAllGroups(
-          groups.map(({id, name}: groupFromDb) => {
-            return (
-              <MenuItem key={id} value={id}>
-                {name}
-              </MenuItem>
-            );
-          })
+          groups.map(({ id, name }: groupFromDb) => (
+            <MenuItem key={id} value={id}>
+              {name}
+            </MenuItem>
+          ))
         );
       })
-      .catch((err) => {
-        return toast.error(err.response.data);
-      });
+      .catch((err) => toast.error(err.response.data));
   }, []);
 
   const EditDetailTextBox = (props: editableField) => {
@@ -121,7 +113,13 @@ const PersonEnabledDetails = ({
       ) : (
         <FormControl variant="standard" sx={{ minWidth: 120 }}>
           <InputLabel>Group</InputLabel>
-          <Select value={group} onChange={handleChange} label="Group">
+          <Select
+            value={group}
+            onChange={(event: SelectChangeEvent) => {
+              setGroup(event.target.value);
+            }}
+            label="Group"
+          >
             <MenuItem value="">None</MenuItem>
             {allGroups}
           </Select>

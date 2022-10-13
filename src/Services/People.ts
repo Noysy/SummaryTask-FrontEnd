@@ -15,39 +15,31 @@ axios.interceptors.request.use((config) => {
 });
 
 class PeopleServices {
-  static getAllPeople = async () => {
-    return (await axios.get(`${peopleApiRoute}/`)).data;
-  };
+  static getAllPeople = async () =>
+    (await axios.get(`${peopleApiRoute}/`)).data;
 
-  static getAllPeopleList = async () => {
-    return (await axios.get(`${peopleApiRoute}/list`)).data;
-  };
+  static getAllPeopleList = async () =>
+    (await axios.get(`${peopleApiRoute}/list`)).data;
 
-  static createPerson = async (personDetails: ICreatePerson) => {
-    return (await axios.post(`${peopleApiRoute}/`, personDetails)).data;
-  };
+  static createPerson = async (personDetails: ICreatePerson) =>
+    (await axios.post(`${peopleApiRoute}/`, personDetails)).data;
 
-  static updatePerson = async (personDetails: IUpdate) => {
-    return (
+  static updatePerson = async (personDetails: IUpdate) =>
+    (
       await axios.put(
         `${peopleApiRoute}/${personDetails.id}`,
         personDetails.newPerson
       )
     ).data;
-  };
 
-  static deletePerson = async (personId: string) => {
-    return (await axios.delete(`${peopleApiRoute}/${personId}`)).data;
-  };
+  static deletePerson = async (personId: string) =>
+    (await axios.delete(`${peopleApiRoute}/${personId}`)).data;
 
-  static uploadFile = async (personId: string, file: FormData) => {
-    return (await axios.put(`${peopleApiRoute}/${personId}/upload-file`, file))
-      .data;
-  };
+  static uploadFile = async (personId: string, file: FormData) =>
+    (await axios.put(`${peopleApiRoute}/${personId}/upload-file`, file)).data;
 
-  static selectUser = async (personId: string) => {
-    return (await axios.get(`${peopleApiRoute}/${personId}/login`)).data;
-  };
+  static selectUser = async (personId: string) =>
+    (await axios.get(`${peopleApiRoute}/${personId}/login`)).data;
 }
 
 export default PeopleServices;
