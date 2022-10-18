@@ -7,7 +7,7 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   groupFromDb,
   groupWithPopulatedChildren,
@@ -166,27 +166,33 @@ const Group: React.FC<IGroupProps> = ({
       .catch((err) => toast.error(err.response.data));
   };
 
-  const peopleAsElements = people.map((person) => {
-    return (
-      <People
-        key={person.id}
-        person={person}
-        groupId={id}
-        getPeople={getPeople}
-        currentRole={currentRole}
-      />
-    );
-  });
+  const peopleAsElements = useMemo(
+    () =>
+      people.map((person) => (
+        <People
+          key={person.id}
+          person={person}
+          groupId={id}
+          getPeople={getPeople}
+          currentRole={currentRole}
+        />
+      )),
+    [people]
+  );
 
-  const groupsAsElements = groups.map((group) => (
-    <Groups
-      id={group.id}
-      name={group.name}
-      getGroups={getGroups}
-      key={group.id}
-      currentRole={currentRole}
-    />
-  ));
+  const groupsAsElements = useMemo(
+    () =>
+      groups.map((group) => (
+        <Groups
+          id={group.id}
+          name={group.name}
+          getGroups={getGroups}
+          key={group.id}
+          currentRole={currentRole}
+        />
+      )),
+    [groups]
+  );
 
   return (
     <Zoom in>
