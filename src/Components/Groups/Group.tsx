@@ -28,6 +28,7 @@ import PeopleDropdown from "./PeopleDropdown";
 import GroupsDropdown from "./GroupsDropdown";
 import { useTranslation } from "react-i18next";
 import { AxiosError } from "axios";
+import { getgroups } from "process";
 
 const Group: React.FC<IGroupProps> = ({
   id,
@@ -177,7 +178,7 @@ const Group: React.FC<IGroupProps> = ({
           currentRole={currentRole}
         />
       )),
-    [people]
+    [people, currentRole, getPeople, id]
   );
 
   const groupsAsElements = useMemo(
@@ -191,7 +192,7 @@ const Group: React.FC<IGroupProps> = ({
           currentRole={currentRole}
         />
       )),
-    [groups]
+    [groups, getGroups, currentRole]
   );
 
   return (
