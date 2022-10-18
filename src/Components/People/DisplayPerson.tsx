@@ -48,41 +48,50 @@ const PersonDisabledDetails = ({
       .catch((err) => toast.error(err.response.data));
   };
 
-  const openFiles = () => {
-    <>
+  const OpenFiles = () => {
+    return (
+      <>
+        <Button
+          variant="contained"
+          color="inherit"
+          onClick={() => {
+            setIsFilesOpen((prevValue: boolean) => !prevValue);
+          }}
+          endIcon={<KeyboardArrowDownIcon />}
+        >
+          Files
+        </Button>
+        <div id="person-files">
+          {personFiles.map((file) => {
+            return (
+              <StyledLink
+                key={file.name}
+                id="file"
+                href={file.url}
+                fontFamily=""
+              >
+                {file.name}
+              </StyledLink>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
+  const CloseFiles = () => {
+    return (
       <Button
         variant="contained"
         color="inherit"
         onClick={() => {
           setIsFilesOpen((prevValue: boolean) => !prevValue);
         }}
-        endIcon={<KeyboardArrowDownIcon />}
+        endIcon={<KeyboardArrowUpIcon />}
       >
         Files
       </Button>
-      <div id="person-files">
-        {personFiles.map((file) => {
-          return (
-            <StyledLink key={file.name} id="file" href={file.url} fontFamily="">
-              {file.name}
-            </StyledLink>
-          );
-        })}
-      </div>
-    </>;
-  };
-
-  const closeFiles = () => {
-    <Button
-      variant="contained"
-      color="inherit"
-      onClick={() => {
-        setIsFilesOpen((prevValue: boolean) => !prevValue);
-      }}
-      endIcon={<KeyboardArrowUpIcon />}
-    >
-      Files
-    </Button>;
+    );
   };
 
   return (
@@ -102,7 +111,7 @@ const PersonDisabledDetails = ({
             {id}
           </Typography>
 
-          {isFilesOpen ? { openFiles } : { closeFiles }}
+          {isFilesOpen ? <OpenFiles /> : <CloseFiles />}
         </>
       </CardContent>
       <div id="person-buttons">
