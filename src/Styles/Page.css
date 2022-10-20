@@ -1,0 +1,119 @@
+:root {
+  --card-color: #8ca8cc;
+}
+#page {
+  position: absolute;
+  margin: 5%;
+  padding: 2em;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 0.5em;
+  border: 2px solid white;
+  border-color: rgba(255, 255, 255, 0.4);
+  min-width: 19em;
+  width: 85%;
+}
+
+body {
+  background-color: rgb(88, 124, 177);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link button {
+  font-size: 1em;
+  font-weight: 100;
+  color: rgb(107, 109, 117);
+  border-radius: 0;
+}
+
+hr {
+  border-bottom: 1px transparent;
+  border-top: 1px solid rgb(133, 133, 133)
+}
+
+#person-card {
+  width: 17.5em;
+  margin: 0.5em;
+  background-color: var(--card-color);
+  padding-bottom: 1em;
+}
+
+#main-people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+#add-button {
+  margin-top: 7.8em;
+  margin-bottom: 6.5em;
+  margin-left: 1em;
+}
+
+#image {
+  position: absolute;
+  width: 10em;
+  height: 10em;
+  background-color: black;
+}
+
+#group-card {
+  width: 26.5em;
+  margin: 2em;
+  background-color: var(--card-color);
+}
+
+#name-and-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#groups-and-people {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#person-extended-card {
+  width: 10em;
+  background-color: #6786ac;
+}
+
+#text-box {
+  width: 6em;
+}
+
+#add-to-group {
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon {
+  width: 80%;
+  padding: 1px;
+}
+
+#backdrop {
+  flex-direction: column;
+}
+
+#person-buttons,
+#person-files {
+  display: flex;
+}
+
+#file {
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+}
